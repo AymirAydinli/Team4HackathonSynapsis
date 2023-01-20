@@ -14,8 +14,8 @@ class Question(models.Model):
     question_no = models.IntegerField()
     question_text_pl = models.CharField(max_length=200)
     question_text_en = models.CharField(max_length=200)
-    created_at = models.DateTimeField(False, True, editable=False)
-    updated_at = models.DateTimeField(True, True, editable=False)
+    created_at = models.DateTimeField(auto_now_add = True, editable=False)
+    updated_at = models.DateTimeField(auto_now = True, editable=False)
     
     FORM_TYPE_CHOISE = [(BASIC, 'Basic'), (FOLLOW_UP, 'Follow-up'),]
 
@@ -40,8 +40,8 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    created_at = models.DateTimeField(False, True, editable=False)
-    updated_at = models.DateTimeField(True, True, editable=False)
+    created_at = models.DateTimeField(auto_now_add = True, editable=False)
+    updated_at = models.DateTimeField(auto_now = True, editable=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text_pl = models.CharField(max_length=200)
     choice_text_pl = models.CharField(max_length=200)
@@ -63,17 +63,17 @@ class WebText(models.Model):
     LANGUAGE_PL = 'pl'
     LANGUAGE_EN = 'en'
 
-    created_at = models.DateTimeField(False, True, editable=False)
-    updated_at = models.DateTimeField(True, True, editable=False)
+    created_at = models.DateTimeField(auto_now_add = True, editable=False)
+    updated_at = models.DateTimeField(auto_now = True, editable=False)
     text_code = models.CharField(max_length=20)
     text_pl = models.CharField(max_length=2000)
     text_en = models.CharField(max_length=2000)
 
 class FollowUpQuestion(models.Model):
-    created_at = models.DateTimeField(False, True, editable=False)
-    updated_at = models.DateTimeField(True, True, editable=False)
-    question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL)
-    question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add = True, editable=False)
+    updated_at = models.DateTimeField(auto_now = True, editable=False)
+    question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
+    # question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
 
     def get_text(self, lang):
         if lang == self.LANGUAGE_PL:
@@ -82,3 +82,23 @@ class FollowUpQuestion(models.Model):
             return self.text_pl
         else :
             return self.text_pl
+
+class FilledQuestionair(models.Model):
+    created_at = models.DateTimeField(auto_now_add = True, editable=False)
+    updated_at = models.DateTimeField(auto_now = True, editable=False)
+    post_code = models.CharField(max_length=6)
+    month_of_birth = models.IntegerField()
+    year_of_birth = models.IntegerField()
+    questionair_id = models.IntegerField()
+    score = models.IntegerField()
+
+class QustionAnswer(models.Model):
+    created_at = models.DateTimeField(auto_now_add = True, editable=False)
+    updated_at = models.DateTimeField(auto_now = True, editable=False)
+    
+    quistionair = models.ForeignKey(FilledQuestionair, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
+    answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
+    custom_answer = models.CharField(max_length=2000)
+
+
