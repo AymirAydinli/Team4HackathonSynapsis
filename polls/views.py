@@ -11,14 +11,17 @@ def index(request):
 def get_base_questions(request, *args, **kwargs):
     print(request.GET)
     return JsonResponse(
-        {
-            "q1":{
+        {"questions":[
+            {
+                "id": 1,
                 "pl": "Czy twoje dziecko jest głuche?",
                 "en": "Is your child deaf"
-            }, 
-            "q2":{
+            },
+            {
+                "id": 2,
                 "pl": "Czy twoje dziecko jest niewidome?",
                 "en": "Is your child blind"
             }
+        ]
         }
     )

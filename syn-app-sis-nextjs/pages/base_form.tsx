@@ -1,9 +1,8 @@
 import React from "react";
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
 
 export const getStaticProps = async () =>{
-  const resp = await fetch("http://127.0.0.1:8000/api/get_base_questions/")
-  const data = await resp.json()
+  const res = await fetch("http://127.0.0.1:8000/api/get_base_questions/");
+  const data = await res.json();
 
   return {
     props: {questions: data}
@@ -11,16 +10,30 @@ export const getStaticProps = async () =>{
 }
    
 const base_form = ({questions}) => {
-  console.log(questions["q1"]["pl"]);
+  //console.log(questions);
 
   return (
-    <main>
-    <div className="max-w-flex min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <h1>
-      You are in the base form page 
-      </h1>
-      <p>{questions["q1"]["pl"]}</p>
-    </div>
+    <main className="items-center justify-center content-center">
+      <div>
+        <h1>
+        Wypełnij wszystkie pola
+        </h1>
+
+        {questions["questions"].map(question => (
+          <div key={question.id} >
+            <a>
+              <h3>{question.id}. {question.pl}</h3>
+            </a>
+            <div>
+          <input type="radio" value="Male" name={question.id} /> Tak
+          <input type="radio" value="Female" name={question.id} /> Nie
+        </div>
+          </div>
+        ))
+
+        }
+
+      </div>
     </main>
   );
 };
