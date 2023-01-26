@@ -13,26 +13,27 @@ const base_form = ({questions}) => {
   //console.log(questions);
 
   return (
-    <main className="items-center justify-center content-center">
-      <div>
+    <main >
+      <div className="w-screen flex item-center justify-center m-10">
+      
         <h1>
-        Wypełnij wszystkie pola
+          Wypełnij wszystkie pola
         </h1>
-
-        {questions["questions"].map(question => (
-          <div key={question.id} >
-            <a>
-              <h3>{question.id}. {question.pl}</h3>
-            </a>
-            <div>
-          <input type="radio" value="Male" name={question.id} /> Tak
-          <input type="radio" value="Female" name={question.id} /> Nie
-        </div>
+        <div >
+          {questions["questions"].map(question => (
+            <div key={question.id}>
+              <a>
+                <h3>{question.id}. {question.pl}</h3>
+              </a>
+              <div>
+            <input type="radio" value="Male" name={question.id} /> Tak
+            <input type="radio" value="Female" name={question.id} /> Nie
           </div>
-        ))
+            </div>
+          ))
 
-        }
-
+          }
+        </div>
       </div>
     </main>
   );
