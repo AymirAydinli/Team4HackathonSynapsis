@@ -82,7 +82,7 @@ const base_form = ({questions}) => {
   }
 
   return (
-    <main className=" w-screen flex item-center justify-center m-10 bg-amber-200">
+    <main className=" w-screen flex item-center justify-center m-10">
       <div>
       
         <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-6 lg:px-8 ">
