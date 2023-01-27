@@ -2,19 +2,147 @@
 
 from django.db import migrations
 
-# def insert_questionaire(apps, schema_editor):
+def insert_questionaire(apps, schema_editor):
 
-#     questionModel = apps.get_model('polls', 'Question')
-#     question = question.
-#     questionModel.objects.create(
-        
-#     )
+    Question = apps.get_model('polls', 'Question')
+    Choice = apps.get_model('polls', 'Choice')
+
+    basicQuestione1 = Question(question_no = 1,
+                        question_text_pl = 'Jeśli wskaże Pan/Pani jakiś przedmiot znajdujący się w pomieszczeniu, to czy Pana/Pani dziecko na niego spojrzy? (NA PRZYKŁAD: jeśli wskaże Pan/Pani zabawkę albo zwierzę, to czy Pana/Pani dziecko spojrzy na tę zabawkę lub zwierzę?)',
+                        question_text_en = 'If you point at something across the room, does your child look at it? (FOR EXAMPLE, if you point at a toy or an animal, does your child look at the toy or animal?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione1.save()
+    basicQuestione2 = Question(question_no = 2,
+                        question_text_pl = 'Czy kiedykolwiek pomyślał/a Pan/Pani, że Pana/Pani dziecko może być głuche?',
+                        question_text_en = 'Have you ever wondered if your child might be deaf?',
+                        form_type = 'Basic',
+                        pass_choise = False)
+    basicQuestione2.save()
+    basicQuestione3 = Question(question_no = 3,
+                        question_text_pl = 'Czy Pana/Pani dziecko bawi się w udawanie albo w zabawy na niby? (NA PRZYKŁAD: udaje, że pije z pustego kubka, udaje, że rozmawia przez telefon albo udaje, że karmi lalkę czy pluszowego misia?)',
+                        question_text_en = 'Does your child play pretend or make-believe? (FOR EXAMPLE, pretend to drink from an empty cup, pretend to talk on a phone, or pretend to feed a doll or stuffed animal?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione3.save()
+    basicQuestione4 = Question(question_no = 4,
+                        question_text_pl = 'Czy Pana/Pani dziecko lubi wdrapywać się na różne przedmioty? (NA PRZYKŁAD: na meble, na urządzenia znajdujące się na placu zabaw lub na schody?)',
+                        question_text_en = 'Does your child like climbing on things? (FOR EXAMPLE, furniture, playground equipment, or stairs)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione4.save()
+    basicQuestione5 = Question(question_no = 5,
+                        question_text_pl = 'Czy Pana/Pani dziecko wykonuje dziwne ruchy palcami blisko oczu? (NA PRZYKŁAD: czy Pana/Pani dziecko porusza palcami blisko oczu?)',
+                        question_text_en = 'Does your child make unusual finger movements near his or her eyes? (FOR EXAMPLE, does your child wiggle his or her fingers close to his or her eyes?)',
+                        form_type = 'Basic',
+                        pass_choise = False)
+    basicQuestione5.save()
+    basicQuestione6 = Question(question_no = 6,
+                        question_text_pl = 'Czy Pana/Pani dziecko wskazuje palcem, aby o coś poprosić lub otrzymać pomoc? (NA PRZYKŁAD: czy wskazuje na przekąskę lub zabawkę, która jest poza jego zasięgiem?)',
+                        question_text_en = 'Does your child point with one finger to ask for something or to get help? (FOR EXAMPLE, pointing to a snack or toy that is out of reach)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione6.save()
+    basicQuestione7 = Question(question_no = 7,
+                        question_text_pl = 'Czy Pana/Pani dziecko wskazuje palcem, aby pokazać Panu/Pani coś ciekawego? (NA PRZYKŁAD: czy wskazuje na przelatujący samolot lub na przejeżdżającą ciężarówkę?)',
+                        question_text_en = 'Does your child point with one finger to show you something interesting? (FOR EXAMPLE, pointing to an airplane in the sky or a big truck in the road)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione7.save()
+    basicQuestione8 = Question(question_no = 8,
+                        question_text_pl = 'Czy Pana/Pani dziecko interesuje się innymi dziećmi? (NA PRZYKŁAD: czy Pana/Pani dziecko patrzy na inne dzieci, uśmiecha się lub podchodzi do nich?)',
+                        question_text_en = 'Is your child interested in other children? (FOR EXAMPLE, does your child watch other children, smile at them, or go to them?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione8.save()
+    basicQuestione9 = Question(question_no = 9,
+                        question_text_pl = 'Czy Pana/Pani dziecko przynosi Panu/Pani przedmioty, aby je Panu/Pani pokazać lub podnosi je w taki sposób, żeby mógł/mogła je Pan/Pani obejrzeć – nie po to, aby otrzymać pomoc, ale by je po prostu pokazać? (NA PRZYKŁAD: pokazuje Panu/Pani kwiatek, pluszową zabawkę lub samochodzik?)',
+                        question_text_en = 'Does your child show you things by bringing them to you or holding them up for you to see – not to get help, but just to share? (FOR EXAMPLE, showing you a flower, a stuffed animal, or a toy truck)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione9.save()
+    basicQuestione10 = Question(question_no = 10,
+                        question_text_pl = 'Czy Pana/Pani dziecko reaguje, gdy woła je Pan/Pani po imieniu? (NA PRZYKŁAD: czy dziecko podnosi głowę, odzywa się, gaworzy lub przestaje robić to, co właśnie robiło, gdy woła je Pan/Pani po imieniu?)',
+                        question_text_en = 'Does your child respond when you call his or her name? (FOR EXAMPLE, does he or she look up, talk or babble, or stop what he or she is doing when you call his or her name?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione10.save()
+    basicQuestione11 = Question(question_no = 11,
+                        question_text_pl = 'Gdy uśmiecha się Pan/Pani do dziecka, to czy dziecko odpowiada Panu/Pani uśmiechem?',
+                        question_text_en = 'When you smile at your child, does he or she smile back at you?',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione11.save()
+    basicQuestione12 = Question(question_no = 12,
+                        question_text_pl = 'Czy Pana/Pani dziecko denerwuje się, gdy słyszy codzienne odgłosy? (NA PRZYKŁAD: czy Pana/Pani dziecko krzyczy lub płacze, gdy słyszy dźwięk odkurzacza lub głośną muzykę?)',
+                        question_text_en = 'Does your child get upset by everyday noises? (FOR EXAMPLE, does your child scream or cry to noise such as a vacuum cleaner or loud music?)',
+                        form_type = 'Basic',
+                        pass_choise = False)
+    basicQuestione12.save()
+    basicQuestione13 = Question(question_no = 13,
+                        question_text_pl = 'Czy Pana/Pani dziecko potrafi chodzić?',
+                        question_text_en = 'Does your child walk?',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione13.save()
+    basicQuestione14 = Question(question_no = 14,
+                        question_text_pl = '',
+                        question_text_en = '',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione14.save()
+    basicQuestione15 = Question(question_no = 15,
+                        question_text_pl = 'Czy Pana/Pani dziecko utrzymuje z Panem/Panią kontakt wzrokowy, gdy Pan/Pani do niego mówi, bawi się z nim lub je ubiera?',
+                        question_text_en = 'Does your child look you in the eye when you are talking to him or her, playing with him or her, or dressing him or her?',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione15.save()
+    basicQuestione16 = Question(question_no = 16,
+                        question_text_pl = 'Gdy odwraca Pan/Pani głowę, by na coś spojrzeć, to czy Pana/Pani dziecko także odwraca głowę, by spojrzeć w tę samą stronę?',
+                        question_text_en = 'If you turn your head to look at something, does your child look around to see what you are looking at?',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione16.save()
+    basicQuestione17 = Question(question_no = 17,
+                        question_text_pl = 'Czy Pana/Pani dziecko próbuje zwrócić na siebie uwagę i sprawić by Pan/Pani na nie spojrzał/a? (NA PRZYKŁAD: czy Pana/Pani dziecko spogląda na Pana/Panią, by otrzymać pochwałę lub czy mówi „zobacz”, „popatrz na mnie”?)',
+                        question_text_en = 'Does your child try to get you to watch him or her? (FOR EXAMPLE, does your child look at you for praise, or say “look” or “watch me”?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione17.save()
+    basicQuestione18 = Question(question_no = 18,
+                        question_text_pl = 'Czy Pana/Pani dziecko rozumie, gdy każe mu Pan/Pani coś zrobić? (NA PRZYKŁAD: jeśli nie wskazuje Pan/Pani palcem, to czy Pana/Pani dziecko rozumie zdanie: „połóż książkę na krześle” lub „przynieś mi koc”?)',
+                        question_text_en = 'Does your child understand when you tell him or her to do something? (FOR EXAMPLE, if you don’t point, can your child understand “put the book on the chair” or “bring me the blanket”?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione18.save()
+    basicQuestione19 = Question(question_no = 19,
+                        question_text_pl = 'Gdy dziecko znajdzie się w nowej, nieznanej sytuacji, czy wtedy spojrzy na Pana/Panią, by sprawdzić, jak Pan/Pani na to zareaguje? (NA PRZYKŁAD: gdy dziecko usłyszy jakiś dziwny lub zabawny dźwięk lub gdy widzi nową zabawkę, czy popatrzy wtedy na Pana/Panią?)',
+                        question_text_en = 'If something new happens, does your child look at your face to see how you feel about it? (FOR EXAMPLE, if he or she hears a strange or funny noise, or sees a new toy, will he or she look at your face?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione19.save()
+    basicQuestione20 = Question(question_no = 20,
+                        question_text_pl = 'Czy Pana/Pani dziecko lubi zabawy ruchowe? (NA PRZYKŁAD: lubi być kołysane lub huśtane na Pana/Pani kolanach?)',
+                        question_text_en = 'If something new happens, does your child look at your face to see how you feel about it? (FOR EXAMPLE, if he or she hears a strange or funny noise, or sees a new toy, will he or she look at your face?)',
+                        form_type = 'Basic',
+                        pass_choise = True)
+    basicQuestione20.save()
+    # basicQuestione2 = Question(question_no = 2,
+    #                     question_text_pl = '',
+    #                     question_text_en = '',
+    #                     form_type = 'Basic',
+    #                     pass_choise = True)
+    # basicQuestione2.save()
+    # basicQuestione1ChoiceYes = Choice(question = basicQuestione1,
+    #                     choice_text_en = 'No',
+    #                     choice_text_pl = 'Yes')
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0002_filledquestionair_webtext_and_more'),
+        ('polls', '0004_choice_choice_text_en_and_more'),
     ]
 
     operations = [
+        migrations.RunPython(insert_questionaire),
     ]

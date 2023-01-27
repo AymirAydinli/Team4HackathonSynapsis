@@ -5,11 +5,10 @@ from datetime import datetime
 from datetime import timezone
 from django.db import models
 
+BASIC = 'BASIC'
+FOLLOW_UP = 'FOLLOW-UP'
 
 class Question(models.Model):
-
-    BASIC = 'BASIC'
-    FOLLOW_UP = 'FOLLOW-UP'
 
     question_no = models.IntegerField()
     question_text_pl = models.CharField(max_length=200)

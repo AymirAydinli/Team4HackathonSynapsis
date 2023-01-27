@@ -12,3 +12,5 @@ polls/__pycache__/models.cpython-310.pyc
 polls/__pycache__/views.cpython-310.pyc
 polls/__pycache__/urls.cpython-310.pyc
 db.sqlite3
+polls/migrations/__pycache__/0004_choice_choice_text_en_and_more.cpython-310.pyc
+polls/migrations/__pycache__/0003_auto_20230126_1011.cpython-310.pyc
