@@ -3,10 +3,22 @@ import { Inter } from '@next/font/google'
 import { useRouter } from 'next/navigation';
 
 
+export const getStaticProps = async () =>{
+
+  const response = await fetch("http://127.0.0.1:8000/api/get_unique_id/");
+  const unique_id = await response.json();
+
+
+  return {
+    props: {id: unique_id}
+  }
+}
+
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({id}) {
   const router = useRouter();
+  console.log(id)
   return (
     <main  className="max-w-flex min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
       <div>

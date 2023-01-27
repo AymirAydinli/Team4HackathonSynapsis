@@ -15,13 +15,20 @@ def get_base_questions(request, *args, **kwargs):
             {
                 "id": 1,
                 "pl": "Czy twoje dziecko jest głuche?",
-                "en": "Is your child deaf"
+                "en": "Is your child deaf",
+                "pass_choice": False
             },
             {
                 "id": 2,
                 "pl": "Czy twoje dziecko jest niewidome?",
-                "en": "Is your child blind"
+                "en": "Is your child blind",
+                "pass_choice": True
             }
         ]
         }
     )
+
+def get_unique_id(request):
+    return JsonResponse({
+        "unique_id": 1500
+    })
