@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.http import HttpResponse, JsonResponse
-
+#from models import Question
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -28,7 +28,8 @@ def get_base_questions(request, *args, **kwargs):
         }
     )
 
-def get_unique_id(request):
+def get_unique_id(request, *args, **kwargs):
+
     return JsonResponse({
         "unique_id": 1500
     })

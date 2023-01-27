@@ -15,54 +15,99 @@ const base_form = ({questions}) => {
   const router = useRouter();
   const sum = (input) =>{
     let points = 0 
-
+    console.log( input)
 
     return points
   }
 
+  const map_question_answer = (answers) =>
+  {
+    let mapped_questions = {}
+    let question_id = 0
+    let score = 0
+    let answer
+    for(let idx = 0; idx < answers.length-1 ; idx++)
+    {
+      console.log("ID", idx)
+      if (answers[idx].checked == true) {
+        if( idx % 2 == 0) {
+          answer = true
+        }
+        else{
+          answer = false
+        } 
+        console.log("PASSSS", questions["questions"][question_id]["pass_choice"])
+        // we need to change scoring to opposite for some questions
+        if (questions["questions"][question_id]["pass_choice"] == true ){
+          if (answer == false){
+            answer = true
+          }
+          else{
+            answer = false
+          }
+        }
+        
+        if (answer == true){
+          score++
+        }
+        mapped_questions[questions["questions"][question_id]["id"]] = answer
+        question_id++
+      }    
+    }
+    mapped_questions["score"] = score
+    console.log(mapped_questions)
+    return mapped_questions
+  }
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(e)
+    let data_to_db = map_question_answer(e.target)
+    const sumPoints = sum(data_to_db)
 
-    //document.getElementById('0').target.checked
-    // console.log(e.target["0"].checked)
-    // console.log(e.target["1"].checked)
-    // console.log(e.target["2"].checked)
-    // console.log(e.target["3"].checked)
-    // console.log( e.target.length)
-    
-    for(let idx = 0; idx < e.target.length-1 ; idx++)
-    {
-      console.log(e.target[idx].checked)
-    }
 
-    const sumPoints = sum(e)
+    data_to_db["postal_code"] = document.querySelector('#code').value
+    data_to_db["birth_month"] = document.querySelector('#month').value
+    data_to_db["birth_year"] =  document.querySelector('#year').value
 
+
+    console.log(data_to_db)
     //fetch POST
-    if(sumPoints >=3){
-
+    if(sumPoints <=2){
+      //pop up no issues 
     }
     else{router.push('/follow_up')}
 
   }
 
   return (
-    <main className=" w-screen flex item-center justify-center m-10">
+    <main className=" w-screen flex item-center justify-center m-10 bg-amber-200">
       <div>
       
         <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-6 lg:px-8 ">
           Wypełnij wszystkie pola
         </h1>
         <form onSubmit={handleSubmit} >
+
+        <div className=" flex items-center mb-4 space-x-3" >
+        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kod pocztowy</label>
+        <input type="number" id="code" name="code" className="inline-flex items-center "required />
+        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Miesiąc urodzenia</label>
+        <input type="text" id="month" name="month" className="inline-flex items-center "required />
+        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Rok urodzenia</label>
+        <input type="number" id="year" name="year" className="inline-flex items-center "required />
+        </div>
           {questions["questions"].map(question => (
             <div key={question.id}>
               <a>
                 <h3>{question.id}. {question.pl}</h3>
               </a>
+          
           <div className=" flex items-center mb-4 space-x-3" >
-            <input type="radio" name={question.id} id={question.id} className="inline-flex items-center "/> 
+            <input type="radio" name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
-            <input type="radio"name={question.id} className="inline-flex items-center "/> 
+            <input type="radio"name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nie</label>
           </div>
             </div>
