@@ -43,7 +43,7 @@ class Choice(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text_pl = models.CharField(max_length=200)
+    choice_text_en = models.CharField(max_length=200)
     choice_text_pl = models.CharField(max_length=200)
     # votes = models.IntegerField(default=0)
 
@@ -54,7 +54,7 @@ class Choice(models.Model):
         if lang == WebText.LANGUAGE_PL:
             return self.choice_text_pl
         elif lang == WebText.LANGUAGE_EN:
-            return self.choice_text_pl
+            return self.choice_text_en
         else :
             return self.choice_text_pl
 
@@ -80,7 +80,7 @@ class FollowUpQuestion(models.Model):
         if lang == self.LANGUAGE_PL:
             return self.text_pl
         elif lang == self.LANGUAGE_EN:
-            return self.text_pl
+            return self.text_en
         else :
             return self.text_pl
 

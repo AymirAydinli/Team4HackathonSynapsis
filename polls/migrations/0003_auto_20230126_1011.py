@@ -2,13 +2,13 @@
 
 from django.db import migrations
 
-def insert_questionaire(apps, schema_editor):
+# def insert_questionaire(apps, schema_editor):
 
-    questionModel = apps.get_model('polls', 'Question')
-    question = question.
-    questionModel.objects.create(
+#     questionModel = apps.get_model('polls', 'Question')
+#     question = question.
+#     questionModel.objects.create(
         
-    )
+#     )
 
 class Migration(migrations.Migration):
 
