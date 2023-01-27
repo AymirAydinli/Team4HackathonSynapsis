@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 #from models import Question
 
+from .models import Choice, Question
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -28,8 +30,6 @@ def get_base_questions(request, *args, **kwargs):
         }
     )
 
-def get_unique_id(request, *args, **kwargs):
-
-    return JsonResponse({
-        "unique_id": 1500
-    })
+def baseQuestionList(request):
+    data = list(Question.objects.values())
+    return JsonResponse({'questions': data})
