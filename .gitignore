@@ -14,3 +14,11 @@ polls/__pycache__/urls.cpython-310.pyc
 db.sqlite3
 polls/migrations/__pycache__/0004_choice_choice_text_en_and_more.cpython-310.pyc
 polls/migrations/__pycache__/0003_auto_20230126_1011.cpython-310.pyc
+polls/migrations/__pycache__/0003_choice_choice_text_en_and_more.cpython-310.pyc
+polls/migrations/__pycache__/0003_auto_20230126_1011.cpython-310.pyc
+polls/migrations/__pycache__/0004_choice_choice_text_en_and_more.cpython-310.pyc
+.gitignore
+polls/migrations/__pycache__/initial_data_load.cpython-310.pyc
+polls/migrations/__pycache__/0003_auto_20230126_1011.cpython-310.pyc
+polls/migrations/__pycache__/0004_choice_choice_text_en_and_more.cpython-310.pyc
+polls/migrations/__pycache__/0004_choice_pass_choise_alter_question_pass_choise.cpython-310.pyc

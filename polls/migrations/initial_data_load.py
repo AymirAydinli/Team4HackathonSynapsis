@@ -2,15 +2,14 @@
 
 from django.db import migrations
 
-def insert_questionaire(apps, schema_editor):
+def insert_basic_questionaire(apps, schema_editor):
 
     Question = apps.get_model('polls', 'Question')
-    Choice = apps.get_model('polls', 'Choice')
 
     basicQuestione1 = Question(question_no = 1,
                         question_text_pl = 'Jeśli wskaże Pan/Pani jakiś przedmiot znajdujący się w pomieszczeniu, to czy Pana/Pani dziecko na niego spojrzy? (NA PRZYKŁAD: jeśli wskaże Pan/Pani zabawkę albo zwierzę, to czy Pana/Pani dziecko spojrzy na tę zabawkę lub zwierzę?)',
                         question_text_en = 'If you point at something across the room, does your child look at it? (FOR EXAMPLE, if you point at a toy or an animal, does your child look at the toy or animal?)',
-                        form_type = 'Basic',
+                        form_type = 'BASIC',
                         pass_choise = True)
     basicQuestione1.save()
     basicQuestione2 = Question(question_no = 2,
@@ -86,8 +85,8 @@ def insert_questionaire(apps, schema_editor):
                         pass_choise = True)
     basicQuestione13.save()
     basicQuestione14 = Question(question_no = 14,
-                        question_text_pl = '',
-                        question_text_en = '',
+                        question_text_pl = 'Czy Pana/Pani dziecko utrzymuje z Panem/Panią kontakt wzrokowy, gdy Pan/Pani do niego mówi, bawi się z nim lub je ubiera?',
+                        question_text_en = 'Does your child look you in the eye when you are talking to him or her, playing with him or her, or dressing him or her?',
                         form_type = 'Basic',
                         pass_choise = True)
     basicQuestione14.save()
@@ -127,22 +126,60 @@ def insert_questionaire(apps, schema_editor):
                         form_type = 'Basic',
                         pass_choise = True)
     basicQuestione20.save()
-    # basicQuestione2 = Question(question_no = 2,
-    #                     question_text_pl = '',
-    #                     question_text_en = '',
-    #                     form_type = 'Basic',
-    #                     pass_choise = True)
-    # basicQuestione2.save()
-    # basicQuestione1ChoiceYes = Choice(question = basicQuestione1,
-    #                     choice_text_en = 'No',
-    #                     choice_text_pl = 'Yes')
+
+def insert_follow_up_questionaire(apps, schema_editor):
+
+    Question = apps.get_model('polls', 'Question')
+    Choice = apps.get_model('polls', 'Choice')
+    folowUpQuestione1 = Question(question_no = 1,
+                        question_text_pl = 'Gdy Pan/Pani na coś wskazuje, to jak wtedy zazwyczaj reaguje Pana/Pani dziecko?',
+                        question_text_en = 'If you point at something, what does your child typically do?',
+                        form_type = 'Follow-up')
+    folowUpQuestione1.save()
+    folowUpQuestione1Choice1 = Choice(question = folowUpQuestione1,
+                        choice_text_en = 'Look at object?',
+                        choice_text_pl = 'patrzy na ten przedmiot?',
+                        pass_choise = True)
+    folowUpQuestione1Choice1.save()
+    folowUpQuestione1Choice2 = Choice(question = folowUpQuestione1,
+                        choice_text_en = 'Point to object?',
+                        choice_text_pl = 'wskazuje ten przedmiot?',
+                        pass_choise = True)
+    folowUpQuestione1Choice2.save()
+    folowUpQuestione1Choice3 = Choice(question = folowUpQuestione1,
+                        choice_text_en = 'Look and comment on object?',
+                        choice_text_pl = 'patrzy na przedmiot i komentuje?',
+                        pass_choise = True)
+    folowUpQuestione1Choice3.save()
+    folowUpQuestione1Choice4 = Choice(question = folowUpQuestione1,
+                        choice_text_en = 'Look if you point and say “look!”?',
+                        choice_text_pl = 'patrzy, czy Pan/Pani pokazuje i mówi „spójrz!”?',
+                        pass_choise = True)
+    folowUpQuestione1Choice4.save()
+    folowUpQuestione1Choice5 = Choice(question = folowUpQuestione1,
+                        choice_text_en = 'Ignores you?',
+                        choice_text_pl = 'ignoruje Pana/Panią?',
+                        pass_choise = False)
+    folowUpQuestione1Choice5.save()
+    folowUpQuestione1Choice6 = Choice(question = folowUpQuestione1,
+                        choice_text_en = 'Look around room randomly?',
+                        choice_text_pl = 'rozgląda się po pokoju w losowych kierunkach?',
+                        pass_choise = False)
+    folowUpQuestione1Choice6.save()
+    folowUpQuestione1Choice7 = Choice(question = folowUpQuestione1,
+                        choice_text_en = 'Look at object?',
+                        choice_text_pl = 'patrzy na Pana/Pani palec?',
+                        pass_choise = False)
+    folowUpQuestione1Choice7.save()
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0004_choice_choice_text_en_and_more'),
+        ('polls', '0004_choice_pass_choise_alter_question_pass_choise'),
     ]
 
     operations = [
-        migrations.RunPython(insert_questionaire),
+        migrations.RunPython(insert_basic_questionaire),
+        migrations.RunPython(insert_follow_up_questionaire),
     ]

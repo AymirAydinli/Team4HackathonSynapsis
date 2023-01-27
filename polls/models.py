@@ -21,7 +21,7 @@ class Question(models.Model):
     form_type = models.CharField(max_length=9,
                   choices=FORM_TYPE_CHOISE)
 
-    pass_choise = models.BooleanField(default=False)
+    pass_choise = models.BooleanField(null=True)
 
     def __str__(self):
         return self.question_text_pl
@@ -44,7 +44,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text_en = models.CharField(max_length=200)
     choice_text_pl = models.CharField(max_length=200)
-    # votes = models.IntegerField(default=0)
+    pass_choise = models.BooleanField(null=True)
 
     def __str__(self):
         return self.choice_text_pl
@@ -75,13 +75,6 @@ class FollowUpQuestion(models.Model):
     question_follow_up = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True, related_name='question_follow_up_id')
     follow_up_answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
 
-    def get_text(self, lang):
-        if lang == self.LANGUAGE_PL:
-            return self.text_pl
-        elif lang == self.LANGUAGE_EN:
-            return self.text_en
-        else :
-            return self.text_pl
 
 class FilledQuestionair(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
