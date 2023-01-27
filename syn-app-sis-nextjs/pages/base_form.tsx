@@ -1,14 +1,17 @@
-import React from "react";
+//import React from "react";
 import { useRouter } from 'next/navigation';
 
+import React, { useEffect, useRef, useState } from "react";
+
 export const getStaticProps = async () =>{
-  const res = await fetch("http://127.0.0.1:8000/api/get_base_questions/");
+  const res = await fetch("http://127.0.0.1:8000/api/baseQuestionList/");
   const data = await res.json();
 
   return {
     props: {questions: data}
   }
 }
+
    
 const base_form = ({questions}) => {
   //console.log(questions);
@@ -31,14 +34,15 @@ const base_form = ({questions}) => {
       console.log("ID", idx)
       if (answers[idx].checked == true) {
         if( idx % 2 == 0) {
-          answer = true
+          answer = false
         }
         else{
-          answer = false
+          answer = true
         } 
-        console.log("PASSSS", questions["questions"][question_id]["pass_choice"])
+        console.log("PASSSS", questions["questions"][question_id]["pass_choise"])
         // we need to change scoring to opposite for some questions
-        if (questions["questions"][question_id]["pass_choice"] == true ){
+        console.log(questions["questions"][question_id]["pass_choise"])
+        if (questions["questions"][question_id]["pass_choise"] == true ){
           if (answer == false){
             answer = true
           }
@@ -74,7 +78,7 @@ const base_form = ({questions}) => {
 
     console.log(data_to_db)
     //fetch POST
-    if(sumPoints <=2){
+    if(data_to_db["score"] <=2){
       //pop up no issues 
     }
     else{router.push('/follow_up')}
@@ -101,7 +105,7 @@ const base_form = ({questions}) => {
           {questions["questions"].map(question => (
             <div key={question.id}>
               <a>
-                <h3>{question.id}. {question.pl}</h3>
+                <h3>{question.id}. {question.question_text_pl}</h3>
               </a>
           
           <div className=" flex items-center mb-4 space-x-3" >
