@@ -73,7 +73,8 @@ class FollowUpQuestion(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
     question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
-    # question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
+    question_follow_up = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True, related_name='question_follow_up_id')
+    follow_up_answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
 
     def get_text(self, lang):
         if lang == self.LANGUAGE_PL:
