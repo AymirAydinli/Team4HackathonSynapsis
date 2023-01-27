@@ -1,18 +1,18 @@
 'use client';
 import { Inter } from '@next/font/google'
 import { useRouter } from 'next/navigation';
+ 
+
+// export const getStaticProps = async () =>{
+
+//   const response = await fetch("http://127.0.0.1:8000/api/get_unique_id/");
+//   const unique_id = await response.json();
 
 
-export const getStaticProps = async () =>{
-
-  const response = await fetch("http://127.0.0.1:8000/api/get_unique_id/");
-  const unique_id = await response.json();
-
-
-  return {
-    props: {id: unique_id}
-  }
-}
+//   return {
+//     props: {id: unique_id}
+//   }
+// }
 
 const inter = Inter({ subsets: ['latin'] })
 
