@@ -1,7 +1,8 @@
 //import React from "react";
 import { useRouter } from 'next/navigation';
+import Modal from '@/components/modal';
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 
 export const getStaticProps = async () =>{
   const res = await fetch("http://127.0.0.1:8000/api/baseQuestionList/");
@@ -12,9 +13,12 @@ export const getStaticProps = async () =>{
   }
 }
 
-   
+
 const base_form = ({questions}) => {
   //console.log(questions);
+
+  const [showModal, setShowModal] = useState(false);
+
   const router = useRouter();
   const sum = (input) =>{
     let points = 0 
@@ -80,6 +84,9 @@ const base_form = ({questions}) => {
     //fetch POST
     if(data_to_db["score"] <=2){
       //pop up no issues 
+      //<Modal isvisible />
+      setShowModal(true)
+      
     }
     else{router.push('/follow_up')}
 
@@ -87,13 +94,14 @@ const base_form = ({questions}) => {
 
   return (
     <main className=" w-screen flex item-center justify-center m-10">
+
       <div>
       
         <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-6 lg:px-8 ">
           Wypełnij wszystkie pola
         </h1>
         <form onSubmit={handleSubmit} >
-
+        <Fragment>
         <div className=" flex items-center mb-4 space-x-3" >
         <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kod pocztowy</label>
         <input type="number" id="code" name="code" className="inline-flex items-center "required />
@@ -124,7 +132,8 @@ const base_form = ({questions}) => {
             rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
             value='Zakończ ankietę' 
           />
-
+          <Modal isVisible={showModal} score/>
+          </Fragment>
         </form>
       </div>
 
