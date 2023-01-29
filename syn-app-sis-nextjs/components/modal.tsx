@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from 'next/navigation';
 
-const Modal = ({isVisible, score}) => {
+const Modal = ({isVisible}) => {
   const router = useRouter();
   if( !isVisible) return null;
   return(
@@ -9,7 +9,7 @@ const Modal = ({isVisible, score}) => {
 
     <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
       <div className="w-[600px]">
-        <div className="bg-white p-2 rounded">Dziękujemy za wypełnienie formularza. Wynik to {score}
+        <div className="bg-white p-2 rounded">Dziękujemy za wypełnienie formularza. Nie jest wymagane dalsze działanie monitorujące pod kątem ASD. Zaleca się ponowną obserwację po skończeniu przez dziecko 2. roku życia.
         <div className=" flex justify-center items-center p-2">
         <button
             onClick={() => router.push("/")}

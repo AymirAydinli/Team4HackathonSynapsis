@@ -31,5 +31,9 @@ def get_base_questions(request, *args, **kwargs):
     )
 
 def baseQuestionList(request):
-    data = list(Question.objects.values())
+    data = list(Question.objects.values().filter(form_type="Basic"))
+    return JsonResponse({'questions': data})
+
+def FollowUpQuestionList(request):
+    data = list(Question.objects.values().filter(form_type="Follow-up"))
     return JsonResponse({'questions': data})

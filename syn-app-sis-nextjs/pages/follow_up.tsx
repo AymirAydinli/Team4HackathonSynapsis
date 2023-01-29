@@ -5,28 +5,65 @@ import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function followUp() {
-  const router = useRouter();
-  return (
-    <main  className="max-w-flex min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
-      <div>
+export const getStaticProps = async () =>{
+    const res = await fetch("http://127.0.0.1:8000/api/FollowUpQuestionList/");
+    const data = await res.json();
+  
+    return {
+      props: {questions: data}
+    }
+  }
 
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">FOLLOW UP FORM </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-        
-          <button
-            onClick={() => router.push("/")}
-            type="button"
+
+
+export default function followUp({questions}) {
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
+    console.log("SUBMIT")
+    //fetch POST
+    router.push('/')
+    
+    
+    }
+
+  return (
+    <main className=" w-screen flex item-center justify-center m-10">
+
+      <div>
+      
+        <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-6 lg:px-8 ">
+          Wypełnij wszystkie pola
+        </h1>
+        <form onSubmit={handleSubmit} >
+
+          {questions["questions"].map(question => (
+            <div className='border-2 py-2 px-4 sm:px-6 lg:px-8' key={question.id} >
+              <a>
+                <h3>{question.question_no}. {question.question_text_pl}</h3>
+              </a>
+          
+          <div className=" flex items-center mb-4 space-x-3 rounded-md" >
+            <input type="radio" name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
+              <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
+            <input type="radio"name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
+              <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nie</label>
+          </div>
+            </div>
+          ))
+
+          }
+          <input type='submit'
             className="group relative flex-center justify-center
             py-2 px-4 border border-transparent text-sm font-medium
             rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-          >
-           Zakończ ankietę
-          </button>
-
-
-        </p>
+            value='Zakończ ankietę' 
+          />
+        </form>
       </div>
+
     </main>
   )
 }

@@ -1,8 +1,7 @@
-//import React from "react";
 import { useRouter } from 'next/navigation';
 import Modal from '@/components/modal';
 
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useState } from "react";
 
 export const getStaticProps = async () =>{
   const res = await fetch("http://127.0.0.1:8000/api/baseQuestionList/");
@@ -20,39 +19,31 @@ const base_form = ({questions}) => {
   const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
-  const sum = (input) =>{
-    let points = 0 
-    console.log( input)
-
-    return points
-  }
 
   const map_question_answer = (answers) =>
   {
+    
     let mapped_questions = {}
     let question_id = 0
     let score = 0
     let answer
     for(let idx = 0; idx < answers.length-1 ; idx++)
     {
+      
       console.log("ID", idx)
+      if(answers[idx].id.includes("yes")){
+        console.log("yes")
+      }
       if (answers[idx].checked == true) {
-        if( idx % 2 == 0) {
-          answer = false
+        if(answers[idx].id.includes("yes")) {
+          answer = true
         }
         else{
-          answer = true
+          answer = false
         } 
-        console.log("PASSSS", questions["questions"][question_id]["pass_choise"])
         // we need to change scoring to opposite for some questions
-        console.log(questions["questions"][question_id]["pass_choise"])
         if (questions["questions"][question_id]["pass_choise"] == true ){
-          if (answer == false){
-            answer = true
-          }
-          else{
-            answer = false
-          }
+          answer = !answer
         }
         
         if (answer == true){
@@ -63,32 +54,27 @@ const base_form = ({questions}) => {
       }    
     }
     mapped_questions["score"] = score
-    console.log(mapped_questions)
     return mapped_questions
   }
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(e)
     let data_to_db = map_question_answer(e.target)
-    const sumPoints = sum(data_to_db)
 
 
     data_to_db["postal_code"] = document.querySelector('#code').value
-    data_to_db["birth_month"] = document.querySelector('#month').value
-    data_to_db["birth_year"] =  document.querySelector('#year').value
+    data_to_db["birth_date"] = document.querySelector('#date').value
 
 
     console.log(data_to_db)
     //fetch POST
     if(data_to_db["score"] <=2){
-      //pop up no issues 
-      //<Modal isvisible />
       setShowModal(true)
-      
     }
-    else{router.push('/follow_up')}
+    else{
+     router.push('/follow_up')
+    }
 
   }
 
@@ -104,19 +90,17 @@ const base_form = ({questions}) => {
         <Fragment>
         <div className=" flex items-center mb-4 space-x-3" >
         <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kod pocztowy</label>
-        <input type="number" id="code" name="code" className="inline-flex items-center "required />
-        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Miesiąc urodzenia</label>
-        <input type="text" id="month" name="month" className="inline-flex items-center "required />
-        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Rok urodzenia</label>
-        <input type="number" id="year" name="year" className="inline-flex items-center "required />
+        <input type="text" id="code" name="code" className="inline-flex items-center border-2"required />
+        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Data urodzenia</label>
+        <input type="date" id="date" name="date"  className="inline-flex items-center border-2 "required />
         </div>
           {questions["questions"].map(question => (
-            <div key={question.id}>
+            <div className='border-2 py-2 px-4 sm:px-6 lg:px-8' key={question.id} >
               <a>
-                <h3>{question.id}. {question.question_text_pl}</h3>
+                <h3>{question.question_no}. {question.question_text_pl}</h3>
               </a>
           
-          <div className=" flex items-center mb-4 space-x-3" >
+          <div className=" flex items-center mb-4 space-x-3 rounded-md" >
             <input type="radio" name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
             <input type="radio"name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
@@ -132,7 +116,7 @@ const base_form = ({questions}) => {
             rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
             value='Zakończ ankietę' 
           />
-          <Modal isVisible={showModal} score/>
+          <Modal isVisible={showModal}></Modal>
           </Fragment>
         </form>
       </div>
