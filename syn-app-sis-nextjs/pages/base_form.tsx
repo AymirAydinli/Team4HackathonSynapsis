@@ -60,16 +60,30 @@ const base_form = ({questions}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let data_to_db = map_question_answer(e.target)
+    let base_form_data = map_question_answer(e.target)
 
 
-    data_to_db["postal_code"] = document.querySelector('#code').value
-    data_to_db["birth_date"] = document.querySelector('#date').value
+    base_form_data["postal_code"] = document.querySelector('#code').value
+    base_form_data["birth_date"] = document.querySelector('#date').value
 
 
-    console.log(data_to_db)
-    //fetch POST
-    if(data_to_db["score"] <=2){
+    console.log(base_form_data)
+    try{
+      fetch("http://127.0.0.1:8000/api/post_base_form/", {
+        method: 'POST',
+        body: JSON.stringify({base_form_data}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        dataType: "json",
+      }).then(res=>res.json()).then(response=>console.log(response))
+    }
+    catch{
+      console.log("POST error")
+    }
+
+
+    if(base_form_data["score"] <=2){
       setShowModal(true)
     }
     else{
@@ -79,11 +93,11 @@ const base_form = ({questions}) => {
   }
 
   return (
-    <main className=" w-screen flex item-center justify-center m-10">
+    <main className=" w-auto flex item-center justify-center m-10">
 
       <div>
       
-        <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-6 lg:px-8 ">
+        <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-0 lg:px-0 ">
           Wypełnij wszystkie pola
         </h1>
         <form onSubmit={handleSubmit} >
@@ -95,12 +109,12 @@ const base_form = ({questions}) => {
         <input type="date" id="date" name="date"  className="inline-flex items-center border-2 "required />
         </div>
           {questions["questions"].map(question => (
-            <div className='border-2 py-2 px-4 sm:px-6 lg:px-8' key={question.id} >
+            <div className='border-2 rounded-md py-2 px-4 sm:px-6 lg:px-8 bg-slate-50' key={question.id} >
               <a>
                 <h3>{question.question_no}. {question.question_text_pl}</h3>
               </a>
           
-          <div className=" flex items-center mb-4 space-x-3 rounded-md" >
+          <div className=" flex items-center mb-4 space-x-3 rounded-md " >
             <input type="radio" name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
             <input type="radio"name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 

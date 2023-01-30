@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 from django.http import HttpResponse, JsonResponse
@@ -31,9 +31,11 @@ def get_base_questions(request, *args, **kwargs):
         }
     )
 
+
 def baseQuestionList(request):
     data = list(Question.objects.values().filter(form_type="Basic"))
     return JsonResponse({'questions': data})
+
 
 def FollowUpQuestionList(request):
     data = list(Question.objects.values().filter(form_type="Follow-up"))
