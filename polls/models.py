@@ -77,13 +77,16 @@ class FollowUpQuestion(models.Model):
 
 
 class FilledQuestionair(models.Model):
+    questionair_id = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
     post_code = models.CharField(max_length=6)
     month_of_birth = models.IntegerField()
     year_of_birth = models.IntegerField()
-    questionair_id = models.IntegerField()
     score = models.IntegerField()
+
+    def __str__(self):
+        return self.questionair_id
 
 class QustionAnswer(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
