@@ -15,24 +15,18 @@ class Question(models.Model):
     question_text_en = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
+    question_parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, related_name='question_children')
+    follow_up_answer = models.BooleanField(default=False, null=True)
     
     FORM_TYPE_CHOISE = [(BASIC, 'Basic'), (FOLLOW_UP, 'Follow-up'),]
 
     form_type = models.CharField(max_length=9,
                   choices=FORM_TYPE_CHOISE)
 
-    pass_choise = models.BooleanField(null=True)
+    pass_choice = models.BooleanField(null=True)
 
     def __str__(self):
         return self.question_text_pl
-
-    def get_text(self, lang):
-        if lang == WebText.LANGUAGE_PL:
-            return self.question_text_pl
-        elif lang == WebText.LANGUAGE_EN:
-            return self.question_text_en
-        else :
-            return self.question_text_pl
 
     def was_published_recently(self):
         return self.updated_at >= timezone.now() - datetime.timedelta(days=1)
@@ -44,18 +38,11 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text_en = models.CharField(max_length=200)
     choice_text_pl = models.CharField(max_length=200)
-    pass_choise = models.BooleanField(null=True)
+    pass_choice = models.BooleanField(null=True)
 
     def __str__(self):
         return self.choice_text_pl
 
-    def get_text(self, lang):
-        if lang == WebText.LANGUAGE_PL:
-            return self.choice_text_pl
-        elif lang == WebText.LANGUAGE_EN:
-            return self.choice_text_en
-        else :
-            return self.choice_text_pl
 
 class WebText(models.Model):
 
@@ -68,22 +55,26 @@ class WebText(models.Model):
     text_pl = models.CharField(max_length=2000)
     text_en = models.CharField(max_length=2000)
 
-class FollowUpQuestion(models.Model):
-    created_at = models.DateTimeField(auto_now_add = True, editable=False)
-    updated_at = models.DateTimeField(auto_now = True, editable=False)
-    question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
-    question_follow_up = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True, related_name='question_follow_up_id')
-    follow_up_answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return self.choice_text_pl
 
+
+# class FollowUpQuestion(models.Model):
+#     created_at = models.DateTimeField(auto_now_add = True, editable=False)
+#     updated_at = models.DateTimeField(auto_now = True, editable=False)
+#     question_parent = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
+#     question_follow_up = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True, related_name='question_follow_up_id')
+#     follow_up_answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
 
 class FilledQuestionair(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
-    post_code = models.CharField(max_length=6)
+    post_code = models.CharField(max_length=6, null=False)
     month_of_birth = models.IntegerField()
     year_of_birth = models.IntegerField()
-    questionair_id = models.IntegerField()
-    score = models.IntegerField()
+    date_of_birth = models.DateField()
+    questionair_id = models.IntegerField(null=False, unique=True)
+    score = models.IntegerField(null=False)
 
 class QustionAnswer(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
@@ -92,6 +83,7 @@ class QustionAnswer(models.Model):
     quistionair = models.ForeignKey(FilledQuestionair, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
     answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
+    answer_value = models.BooleanField(null=True)
     custom_answer = models.CharField(max_length=2000)
 
 

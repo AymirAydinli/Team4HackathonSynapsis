@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-def insert_basic_questionaire(apps, schema_editor):
+def insert_questionaire(apps, schema_editor):
 
     Question = apps.get_model('polls', 'Question')
 
@@ -10,176 +10,484 @@ def insert_basic_questionaire(apps, schema_editor):
                         question_text_pl = 'Jeśli wskaże Pan/Pani jakiś przedmiot znajdujący się w pomieszczeniu, to czy Pana/Pani dziecko na niego spojrzy? (NA PRZYKŁAD: jeśli wskaże Pan/Pani zabawkę albo zwierzę, to czy Pana/Pani dziecko spojrzy na tę zabawkę lub zwierzę?)',
                         question_text_en = 'If you point at something across the room, does your child look at it? (FOR EXAMPLE, if you point at a toy or an animal, does your child look at the toy or animal?)',
                         form_type = 'BASIC',
-                        pass_choise = True)
+                        pass_choice = True)
     basicQuestione1.save()
     basicQuestione2 = Question(question_no = 2,
                         question_text_pl = 'Czy kiedykolwiek pomyślał/a Pan/Pani, że Pana/Pani dziecko może być głuche?',
                         question_text_en = 'Have you ever wondered if your child might be deaf?',
-                        form_type = 'Basic',
-                        pass_choise = False)
+                        form_type = 'BASIC',
+                        pass_choice = False)
     basicQuestione2.save()
     basicQuestione3 = Question(question_no = 3,
                         question_text_pl = 'Czy Pana/Pani dziecko bawi się w udawanie albo w zabawy na niby? (NA PRZYKŁAD: udaje, że pije z pustego kubka, udaje, że rozmawia przez telefon albo udaje, że karmi lalkę czy pluszowego misia?)',
                         question_text_en = 'Does your child play pretend or make-believe? (FOR EXAMPLE, pretend to drink from an empty cup, pretend to talk on a phone, or pretend to feed a doll or stuffed animal?)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione3.save()
     basicQuestione4 = Question(question_no = 4,
                         question_text_pl = 'Czy Pana/Pani dziecko lubi wdrapywać się na różne przedmioty? (NA PRZYKŁAD: na meble, na urządzenia znajdujące się na placu zabaw lub na schody?)',
                         question_text_en = 'Does your child like climbing on things? (FOR EXAMPLE, furniture, playground equipment, or stairs)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione4.save()
     basicQuestione5 = Question(question_no = 5,
                         question_text_pl = 'Czy Pana/Pani dziecko wykonuje dziwne ruchy palcami blisko oczu? (NA PRZYKŁAD: czy Pana/Pani dziecko porusza palcami blisko oczu?)',
                         question_text_en = 'Does your child make unusual finger movements near his or her eyes? (FOR EXAMPLE, does your child wiggle his or her fingers close to his or her eyes?)',
-                        form_type = 'Basic',
-                        pass_choise = False)
+                        form_type = 'BASIC',
+                        pass_choice = False)
     basicQuestione5.save()
     basicQuestione6 = Question(question_no = 6,
                         question_text_pl = 'Czy Pana/Pani dziecko wskazuje palcem, aby o coś poprosić lub otrzymać pomoc? (NA PRZYKŁAD: czy wskazuje na przekąskę lub zabawkę, która jest poza jego zasięgiem?)',
                         question_text_en = 'Does your child point with one finger to ask for something or to get help? (FOR EXAMPLE, pointing to a snack or toy that is out of reach)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione6.save()
     basicQuestione7 = Question(question_no = 7,
                         question_text_pl = 'Czy Pana/Pani dziecko wskazuje palcem, aby pokazać Panu/Pani coś ciekawego? (NA PRZYKŁAD: czy wskazuje na przelatujący samolot lub na przejeżdżającą ciężarówkę?)',
                         question_text_en = 'Does your child point with one finger to show you something interesting? (FOR EXAMPLE, pointing to an airplane in the sky or a big truck in the road)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione7.save()
     basicQuestione8 = Question(question_no = 8,
                         question_text_pl = 'Czy Pana/Pani dziecko interesuje się innymi dziećmi? (NA PRZYKŁAD: czy Pana/Pani dziecko patrzy na inne dzieci, uśmiecha się lub podchodzi do nich?)',
                         question_text_en = 'Is your child interested in other children? (FOR EXAMPLE, does your child watch other children, smile at them, or go to them?)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione8.save()
     basicQuestione9 = Question(question_no = 9,
                         question_text_pl = 'Czy Pana/Pani dziecko przynosi Panu/Pani przedmioty, aby je Panu/Pani pokazać lub podnosi je w taki sposób, żeby mógł/mogła je Pan/Pani obejrzeć – nie po to, aby otrzymać pomoc, ale by je po prostu pokazać? (NA PRZYKŁAD: pokazuje Panu/Pani kwiatek, pluszową zabawkę lub samochodzik?)',
                         question_text_en = 'Does your child show you things by bringing them to you or holding them up for you to see – not to get help, but just to share? (FOR EXAMPLE, showing you a flower, a stuffed animal, or a toy truck)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione9.save()
     basicQuestione10 = Question(question_no = 10,
                         question_text_pl = 'Czy Pana/Pani dziecko reaguje, gdy woła je Pan/Pani po imieniu? (NA PRZYKŁAD: czy dziecko podnosi głowę, odzywa się, gaworzy lub przestaje robić to, co właśnie robiło, gdy woła je Pan/Pani po imieniu?)',
                         question_text_en = 'Does your child respond when you call his or her name? (FOR EXAMPLE, does he or she look up, talk or babble, or stop what he or she is doing when you call his or her name?)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione10.save()
     basicQuestione11 = Question(question_no = 11,
                         question_text_pl = 'Gdy uśmiecha się Pan/Pani do dziecka, to czy dziecko odpowiada Panu/Pani uśmiechem?',
                         question_text_en = 'When you smile at your child, does he or she smile back at you?',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione11.save()
     basicQuestione12 = Question(question_no = 12,
                         question_text_pl = 'Czy Pana/Pani dziecko denerwuje się, gdy słyszy codzienne odgłosy? (NA PRZYKŁAD: czy Pana/Pani dziecko krzyczy lub płacze, gdy słyszy dźwięk odkurzacza lub głośną muzykę?)',
                         question_text_en = 'Does your child get upset by everyday noises? (FOR EXAMPLE, does your child scream or cry to noise such as a vacuum cleaner or loud music?)',
-                        form_type = 'Basic',
-                        pass_choise = False)
+                        form_type = 'BASIC',
+                        pass_choice = False)
     basicQuestione12.save()
     basicQuestione13 = Question(question_no = 13,
                         question_text_pl = 'Czy Pana/Pani dziecko potrafi chodzić?',
                         question_text_en = 'Does your child walk?',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione13.save()
     basicQuestione14 = Question(question_no = 14,
                         question_text_pl = 'Czy Pana/Pani dziecko utrzymuje z Panem/Panią kontakt wzrokowy, gdy Pan/Pani do niego mówi, bawi się z nim lub je ubiera?',
                         question_text_en = 'Does your child look you in the eye when you are talking to him or her, playing with him or her, or dressing him or her?',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione14.save()
     basicQuestione15 = Question(question_no = 15,
-                        question_text_pl = 'Czy Pana/Pani dziecko utrzymuje z Panem/Panią kontakt wzrokowy, gdy Pan/Pani do niego mówi, bawi się z nim lub je ubiera?',
-                        question_text_en = 'Does your child look you in the eye when you are talking to him or her, playing with him or her, or dressing him or her?',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        question_text_pl = 'Czy Pana/Pani dziecko próbuje naśladować to, co Pan/Pani robi? (NA PRZYKŁAD: machanie ręką na pożegnanie, klaskanie lub wydawanie śmiesznych dźwięków)',
+                        question_text_en = 'Does your child try to copy what you do? (FOR EXAMPLE, wave bye-bye, clap, or make a funny noise when you do)',
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione15.save()
     basicQuestione16 = Question(question_no = 16,
                         question_text_pl = 'Gdy odwraca Pan/Pani głowę, by na coś spojrzeć, to czy Pana/Pani dziecko także odwraca głowę, by spojrzeć w tę samą stronę?',
                         question_text_en = 'If you turn your head to look at something, does your child look around to see what you are looking at?',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione16.save()
     basicQuestione17 = Question(question_no = 17,
                         question_text_pl = 'Czy Pana/Pani dziecko próbuje zwrócić na siebie uwagę i sprawić by Pan/Pani na nie spojrzał/a? (NA PRZYKŁAD: czy Pana/Pani dziecko spogląda na Pana/Panią, by otrzymać pochwałę lub czy mówi „zobacz”, „popatrz na mnie”?)',
                         question_text_en = 'Does your child try to get you to watch him or her? (FOR EXAMPLE, does your child look at you for praise, or say “look” or “watch me”?)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione17.save()
     basicQuestione18 = Question(question_no = 18,
                         question_text_pl = 'Czy Pana/Pani dziecko rozumie, gdy każe mu Pan/Pani coś zrobić? (NA PRZYKŁAD: jeśli nie wskazuje Pan/Pani palcem, to czy Pana/Pani dziecko rozumie zdanie: „połóż książkę na krześle” lub „przynieś mi koc”?)',
                         question_text_en = 'Does your child understand when you tell him or her to do something? (FOR EXAMPLE, if you don’t point, can your child understand “put the book on the chair” or “bring me the blanket”?)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione18.save()
     basicQuestione19 = Question(question_no = 19,
                         question_text_pl = 'Gdy dziecko znajdzie się w nowej, nieznanej sytuacji, czy wtedy spojrzy na Pana/Panią, by sprawdzić, jak Pan/Pani na to zareaguje? (NA PRZYKŁAD: gdy dziecko usłyszy jakiś dziwny lub zabawny dźwięk lub gdy widzi nową zabawkę, czy popatrzy wtedy na Pana/Panią?)',
                         question_text_en = 'If something new happens, does your child look at your face to see how you feel about it? (FOR EXAMPLE, if he or she hears a strange or funny noise, or sees a new toy, will he or she look at your face?)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione19.save()
     basicQuestione20 = Question(question_no = 20,
                         question_text_pl = 'Czy Pana/Pani dziecko lubi zabawy ruchowe? (NA PRZYKŁAD: lubi być kołysane lub huśtane na Pana/Pani kolanach?)',
                         question_text_en = 'If something new happens, does your child look at your face to see how you feel about it? (FOR EXAMPLE, if he or she hears a strange or funny noise, or sees a new toy, will he or she look at your face?)',
-                        form_type = 'Basic',
-                        pass_choise = True)
+                        form_type = 'BASIC',
+                        pass_choice = True)
     basicQuestione20.save()
-
-def insert_follow_up_questionaire(apps, schema_editor):
 
     Question = apps.get_model('polls', 'Question')
     Choice = apps.get_model('polls', 'Choice')
-    folowUpQuestione1 = Question(question_no = 1,
+    folowUpQuestione1 = Question(question_no = 1, question_parent = basicQuestione1,
                         question_text_pl = 'Gdy Pan/Pani na coś wskazuje, to jak wtedy zazwyczaj reaguje Pana/Pani dziecko?',
                         question_text_en = 'If you point at something, what does your child typically do?',
-                        form_type = 'Follow-up')
+                        form_type = 'FOLLOW_UP', follow_up_answer = False)
     folowUpQuestione1.save()
     folowUpQuestione1Choice1 = Choice(question = folowUpQuestione1,
                         choice_text_en = 'Look at object?',
                         choice_text_pl = 'patrzy na ten przedmiot?',
-                        pass_choise = True)
+                        pass_choice = True)
     folowUpQuestione1Choice1.save()
     folowUpQuestione1Choice2 = Choice(question = folowUpQuestione1,
                         choice_text_en = 'Point to object?',
                         choice_text_pl = 'wskazuje ten przedmiot?',
-                        pass_choise = True)
+                        pass_choice = True)
     folowUpQuestione1Choice2.save()
     folowUpQuestione1Choice3 = Choice(question = folowUpQuestione1,
                         choice_text_en = 'Look and comment on object?',
                         choice_text_pl = 'patrzy na przedmiot i komentuje?',
-                        pass_choise = True)
+                        pass_choice = True)
     folowUpQuestione1Choice3.save()
     folowUpQuestione1Choice4 = Choice(question = folowUpQuestione1,
                         choice_text_en = 'Look if you point and say “look!”?',
                         choice_text_pl = 'patrzy, czy Pan/Pani pokazuje i mówi „spójrz!”?',
-                        pass_choise = True)
+                        pass_choice = True)
     folowUpQuestione1Choice4.save()
     folowUpQuestione1Choice5 = Choice(question = folowUpQuestione1,
                         choice_text_en = 'Ignores you?',
                         choice_text_pl = 'ignoruje Pana/Panią?',
-                        pass_choise = False)
+                        pass_choice = False)
     folowUpQuestione1Choice5.save()
     folowUpQuestione1Choice6 = Choice(question = folowUpQuestione1,
                         choice_text_en = 'Look around room randomly?',
                         choice_text_pl = 'rozgląda się po pokoju w losowych kierunkach?',
-                        pass_choise = False)
+                        pass_choice = False)
     folowUpQuestione1Choice6.save()
     folowUpQuestione1Choice7 = Choice(question = folowUpQuestione1,
                         choice_text_en = 'Look at object?',
                         choice_text_pl = 'patrzy na Pana/Pani palec?',
-                        pass_choise = False)
+                        pass_choice = False)
     folowUpQuestione1Choice7.save()
 
+    folowUpQuestione2 = Question(question_no = 2, question_parent = basicQuestione2,
+                        question_text_pl = 'Powiedział/a Pan/Pani, że zastanawiał/a się kiedyś, czy Pana/Pani dziecko jest głuche. Co skłoniło Pana/Panią do takich przypuszczeń?',
+                        question_text_en = 'You reported that you have wondered if you child is deaf. What led you to wonder that?',
+                        form_type = 'FOLLOW_UP', follow_up_answer = True)
+    folowUpQuestione2.save()
+    folowUpQuestione2Choice1 = Choice(question = folowUpQuestione2,
+                        choice_text_en = 'often ignore sounds?',
+                        choice_text_pl = 'często ignoruje odgłosy?',
+                        pass_choice = False)
+    folowUpQuestione2Choice1.save()
+    folowUpQuestione2Choice2 = Choice(question = folowUpQuestione2,
+                        choice_text_en = 'often ignore people?',
+                        choice_text_pl = 'często ignoruje ludzi?',
+                        pass_choice = False)
+    folowUpQuestione2Choice2.save()
+
+    folowUpQuestione2a = Question(question_no = 2, question_parent = basicQuestione2,
+                        question_text_pl = 'czy Pana/Pani dziecko miało przeprowadzone badanie słuchu? (za wyjątkiem przesiewowego badania po urodzeniu)',
+                        question_text_en = 'Has your child\'s hearing been tested?',
+                        form_type = 'FOLLOW_UP', follow_up_answer = True)
+    folowUpQuestione2a.save()
+    folowUpQuestione2b = Question(question_no = 2, question_parent = folowUpQuestione2a,
+                        question_text_pl = 'Jakie były wyniki badania? (prosze wybrać jedną odpowiedź)',
+                        question_text_en = 'What where the results of the hearing test? (choose one)',
+                        form_type = 'FOLLOW_UP', follow_up_answer = True)
+    folowUpQuestione2b.save()
+    folowUpQuestione2bChoice1 = Choice(question = folowUpQuestione2b,
+                        choice_text_en = 'Hearing in normal range',
+                        choice_text_pl = 'Próg słyszenia poniżej normy')
+    folowUpQuestione2bChoice1.save()
+    folowUpQuestione2bChoice2 = Choice(question = folowUpQuestione2b,
+                        choice_text_en = 'Hearing below normal',
+                        choice_text_pl = 'Próg słyszenia poniżej normy')
+    folowUpQuestione2bChoice2.save()
+    folowUpQuestione2bChoice3 = Choice(question = folowUpQuestione2b,
+                        choice_text_en = 'Results inconclusive or not definitive',
+                        choice_text_pl = 'Wynik niejednoznaczny lub niejasny',
+                        pass_choice = True)
+    folowUpQuestione2bChoice3.save()
+
+    folowUpQuestione3 = Question(question_no = 3, question_parent = basicQuestione3,
+                        question_text_pl = 'Czy dziecko zazwyczaj…',
+                        question_text_en = 'Does he/she usually…',
+                        form_type = 'FOLLOW_UP', follow_up_answer = False)
+    folowUpQuestione3.save()
+    folowUpQuestione3Choice1 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Pretend to drink from a toy cup?',
+                        choice_text_pl = 'udaje, że pije z zabawkowego kubka?',
+                        pass_choice = True)
+    folowUpQuestione3Choice1.save()
+    folowUpQuestione3Choice2 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Pretend to eat from a toyspoon or fork?',
+                        choice_text_pl = 'udaje, że je zabawkową łyżką lub widelcem?',
+                        pass_choice = True)
+    folowUpQuestione3Choice2.save()
+    folowUpQuestione3Choice3 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Pretend to talk on the telephone?',
+                        choice_text_pl = 'udaje, że rozmawia przez telefon?',
+                        pass_choice = True)
+    folowUpQuestione3Choice3.save()
+    folowUpQuestione3Choice4 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Pretend to feed a doll or stuffed animal with real or imaginary food?',
+                        choice_text_pl = 'udaje, że karmi lalkę lub pluszową zabawkę prawdziwym albo wyimaginowanym jedzeniem?',
+                        pass_choice = True)
+    folowUpQuestione3Choice4.save()
+    folowUpQuestione3Choice5 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Push a car as if it is going along a pretend road?',
+                        choice_text_pl = 'jeździ samochodzikiem po zmyślonej drodze?',
+                        pass_choice = True)
+    folowUpQuestione3Choice5.save()
+    folowUpQuestione3Choice6 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Pretend to be a robot, an airplane, a ballerina, or any other favorite character?',
+                        choice_text_pl = 'udaje, że jest robotem, samolotem, baletnicą lub inną ulubioną postacią?',
+                        pass_choice = True)
+    folowUpQuestione3Choice6.save()
+    folowUpQuestione3Choice7 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Put a toy pot on a pretend stove?',
+                        choice_text_pl = 'umieszcza zabawkowy garnek na wymyślonej kuchence?',
+                        pass_choice = True)
+    folowUpQuestione3Choice7.save()
+    folowUpQuestione3Choice8 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Stir imaginary food?',
+                        choice_text_pl = 'miesza w garnku wymyślone jedzenie?',
+                        pass_choice = True)
+    folowUpQuestione3Choice8.save()
+    folowUpQuestione3Choice9 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Put an action figure or doll into a car or truck as if it is the driver or passenger?',
+                        choice_text_pl = 'wkłada do samochodzika lub ciężarówki figurkę lub lalkę, jak gdyby miała ona być kierowcą lub pasażerem?',
+                        pass_choice = True)
+    folowUpQuestione3Choice9.save()
+    folowUpQuestione3Choice10 = Choice(question = folowUpQuestione3,
+                        choice_text_en = 'Pretend to vacuum the rug, sweep the floor, or the mow lawn?',
+                        choice_text_pl = 'udaje, że odkurza dywan, zamiata podłogę lub kosi trawnik?',
+                        pass_choice = True)
+    folowUpQuestione3Choice10.save()
+
+    folowUpQuestione4 = Question(question_no = 4, question_parent = basicQuestione4,
+                        question_text_pl = 'Czy dziecko lubi wdrapywać się na…',
+                        question_text_en = 'Does he/she enjoy climbing on…',
+                        form_type = 'FOLLOW_UP', follow_up_answer = False)
+    folowUpQuestione4.save()
+    folowUpQuestione4Choice1 = Choice(question = folowUpQuestione4,
+                        choice_text_en = 'Stairs?',
+                        choice_text_pl = 'schody?',
+                        pass_choice = True)
+    folowUpQuestione4Choice1.save()
+    folowUpQuestione4Choice2 = Choice(question = folowUpQuestione4,
+                        choice_text_en = 'Chairs?',
+                        choice_text_pl = 'krzesła?',
+                        pass_choice = True)
+    folowUpQuestione4Choice2.save()
+    folowUpQuestione4Choice3 = Choice(question = folowUpQuestione4,
+                        choice_text_en = 'Furniture?',
+                        choice_text_pl = 'meble?',
+                        pass_choice = True)
+    folowUpQuestione4Choice3.save()
+    folowUpQuestione4Choice4 = Choice(question = folowUpQuestione4,
+                        choice_text_en = 'Playground equipment?',
+                        choice_text_pl = 'urządzenia znajdujące się na placu zabaw?',
+                        pass_choice = True)
+    folowUpQuestione4Choice4.save()
+
+    folowUpQuestione5 = Question(question_no = 5, question_parent = basicQuestione5,
+                        question_text_pl = 'Gdy Pan/Pani na coś wskazuje, to jak wtedy zazwyczaj reaguje Pana/Pani dziecko?',
+                        question_text_en = 'You reported that your child make unusual finger movements near his/her face. Does your  child…',
+                        form_type = 'FOLLOW_UP', follow_up_answer = True)
+    folowUpQuestione5.save()
+    folowUpQuestione5Choice1 = Choice(question = folowUpQuestione5,
+                        choice_text_en = 'Look at hands?',
+                        choice_text_pl = 'patrzy na dłonie?',
+                        pass_choice = True)
+    folowUpQuestione5Choice1.save()
+    folowUpQuestione5Choice2 = Choice(question = folowUpQuestione5,
+                        choice_text_en = 'Move fingers when playing peek-a-boo?',
+                        choice_text_pl = 'rusza palcami podczas zabawy w „a kuku”?',
+                        pass_choice = True)
+    folowUpQuestione5Choice2.save()
+    folowUpQuestione5Choice3 = Choice(question = folowUpQuestione5,
+                        choice_text_en = 'Wiggle his/her fingers near his/her eyes?',
+                        choice_text_pl = 'porusza palcami blisko oczu?',
+                        pass_choice = False)
+    folowUpQuestione5Choice3.save()
+    folowUpQuestione5Choice4 = Choice(question = folowUpQuestione5,
+                        choice_text_en = 'Hold his/her hands up close to his/her eyes?',
+                        choice_text_pl = 'trzyma podniesione ręce blisko oczu?',
+                        pass_choice = False)
+    folowUpQuestione5Choice4.save()
+    folowUpQuestione5Choice5 = Choice(question = folowUpQuestione5,
+                        choice_text_en = 'Hold his/her hands off to the side of his/her eyes?',
+                        choice_text_pl = 'trzyma podniesione ręce przy oczach?',
+                        pass_choice = False)
+    folowUpQuestione5Choice5.save()
+    folowUpQuestione5Choice6 = Choice(question = folowUpQuestione5,
+                        choice_text_en = 'Flap his/her hands near his/her face?',
+                        choice_text_pl = 'macha dłońmi przy twarzy?',
+                        pass_choice = False)
+    folowUpQuestione5Choice6.save()
+
+    folowUpQuestione5a = Question(question_no = 5, question_parent = folowUpQuestione5,
+                        question_text_pl = 'Czy zdarza się to częściej niż dwa razy w tygodniu?',
+                        question_text_en = 'Does this happen more than twice a week?',
+                        form_type = 'FOLLOW_UP', follow_up_answer = False, pass_choice = False)
+    folowUpQuestione5a.save()
+
+    folowUpQuestione6 = Question(question_no = 6, question_parent = basicQuestione6,
+                        question_text_pl = 'Gdy Pana/Pani dziecko chce sięgnąć po coś, co jest poza jego zasięgiem, np. przekąskę lub zabawkę, co wtedy robi?',
+                        question_text_en = 'If there is something your child wants that is out of reach, such as a snack or toy that is out of reach, how does he/she get it??',
+                        form_type = 'FOLLOW_UP', follow_up_answer = False)
+    folowUpQuestione6.save()
+    folowUpQuestione6Choice1 = Choice(question = folowUpQuestione6,
+                        choice_text_en = 'Reach for the object with his/her whole hand?',
+                        choice_text_pl = 'wyciąga całą dłoń po przedmiot?',
+                        pass_choice = True)
+    folowUpQuestione6Choice1.save()
+    folowUpQuestione6Choice2 = Choice(question = folowUpQuestione6,
+                        choice_text_en = 'Lead you to the object?',
+                        choice_text_pl = 'prowadzi Pana/Panią do tego przedmiotu?',
+                        pass_choice = True)
+    folowUpQuestione6Choice2.save()
+    folowUpQuestione6Choice3 = Choice(question = folowUpQuestione6,
+                        choice_text_en = 'Try to get the object for him/herself?',
+                        choice_text_pl = 'samo próbuje dosięgnąć tego przedmiotu?',
+                        pass_choice = True)
+    folowUpQuestione6Choice3.save()
+    folowUpQuestione6Choice4 = Choice(question = folowUpQuestione6,
+                        choice_text_en = 'Ask for it using words or sounds?',
+                        choice_text_pl = 'prosi o przedmiot za pomocą słów lub innych dźwięków?',
+                        pass_choice = True)
+    folowUpQuestione6Choice4.save()
+
+    folowUpQuestione6a = Question(question_no = 6, question_parent = folowUpQuestione6,
+                        question_text_pl = 'Jeśli powie Pan/Pani „pokaż mi”, to czy dziecko wskaże ten przedmiot?',
+                        question_text_en = 'If you said “Show me,” would he/she point at it?',
+                        form_type = 'FOLLOW_UP', follow_up_answer = False)
+    folowUpQuestione6a.save()
+
+    folowUpQuestione7 = Question(question_no = 7, question_parent = basicQuestione7,
+                        question_text_pl = 'Czy dziecko chce pokazać Panu/Pani coś, co je zainteresowało np. …',
+                        question_text_en = 'Does your child sometimes want you to see something interesting such as….',
+                        form_type = 'FOLLOW_UP', follow_up_answer = False)
+    folowUpQuestione7.save()
+    folowUpQuestione7Choice1 = Choice(question = folowUpQuestione7,
+                        choice_text_en = 'An airplane in the sky?',
+                        choice_text_pl = 'przelatujący samolot?',
+                        pass_choice = True)
+    folowUpQuestione7Choice1.save()
+    folowUpQuestione7Choice2 = Choice(question = folowUpQuestione7,
+                        choice_text_en = 'A truck on the road?',
+                        choice_text_pl = 'ciężarówka na ulicy?',
+                        pass_choice = True)
+    folowUpQuestione7Choice2.save()
+    folowUpQuestione7Choice3 = Choice(question = folowUpQuestione7,
+                        choice_text_en = 'A bug on the ground?',
+                        choice_text_pl = 'robak na ziemi?',
+                        pass_choice = True)
+    folowUpQuestione7Choice3.save()
+    folowUpQuestione7Choice4 = Choice(question = folowUpQuestione7,
+                        choice_text_en = 'An animal in the yard?',
+                        choice_text_pl = 'zwierzę na podwórku?',
+                        pass_choice = True)
+    folowUpQuestione7Choice4.save()
+
+    folowUpQuestione7a = Question(question_no = 7, question_parent = folowUpQuestione7,
+                        question_text_pl = 'Jak dziecko zwraca Pana/Pani uwagę na ten przedmiot? Czy wskazuje na niego palcem?',
+                        question_text_en = 'How does your child draw your attention to it? Would he/she point with one finger?',
+                        form_type = 'FOLLOW_UP',
+                        follow_up_answer = True,
+                        pass_choice = True)
+    folowUpQuestione7a.save()
+
+    folowUpQuestione7b = Question(question_no = 7, question_parent = folowUpQuestione7a,
+                        question_text_pl = 'Jak dziecko zwraca Pana/Pani uwagę na ten przedmiot? Czy wskazuje na niego palcem?',
+                        question_text_en = 'How does your child draw your attention to it? Would he/she point with one finger?',
+                        form_type = 'FOLLOW_UP',
+                        follow_up_answer = True,
+                        pass_choice = True)
+    folowUpQuestione7b.save()
+
+    folowUpQuestione8 = Question(question_no = 8, question_parent = basicQuestione8,
+                        question_text_pl = 'Czy dziecko chce pokazać Panu/Pani coś, co je zainteresowało np. …',
+                        question_text_en = 'Does your child sometimes want you to see something interesting such as….',
+                        form_type = 'FOLLOW_UP', follow_up_answer = False)
+    folowUpQuestione8.save()
+
+    folowUpQuestione8a = Question(question_no = 8, question_parent = folowUpQuestione8,
+                        question_text_pl = 'Jaka jest reakcja dziecka?',
+                        question_text_en = 'How does your child respond?',
+                        form_type = 'FOLLOW_UP',
+                        follow_up_answer = True,
+                        pass_choice = True)
+    folowUpQuestione8a.save()
+
+    folowUpQuestione8Choice1 = Choice(question = folowUpQuestione8a,
+                        choice_text_en = 'Play with another child?',
+                        choice_text_pl = 'bawi się z innymi dziećmi?',
+                        pass_choice = True)
+    folowUpQuestione8Choice1.save()
+    folowUpQuestione8Choice2 = Choice(question = folowUpQuestione8a,
+                        choice_text_en = 'Talk to another child',
+                        choice_text_pl = 'rozmawia z innymi dziećmi?',
+                        pass_choice = True)
+    folowUpQuestione8Choice2.save()
+    folowUpQuestione8Choice3 = Choice(question = folowUpQuestione8a,
+                        choice_text_en = 'Babble or make vocal noises?',
+                        choice_text_pl = 'gaworzy lub wydaje inne dźwięki?',
+                        pass_choice = True)
+    folowUpQuestione8Choice3.save()
+    folowUpQuestione8Choice4 = Choice(question = folowUpQuestione8a,
+                        choice_text_en = 'Watch another child?',
+                        choice_text_pl = 'patrzy na inne dzieci?',
+                        pass_choice = True)
+    folowUpQuestione8Choice4.save()
+    folowUpQuestione8Choice5 = Choice(question = folowUpQuestione8a,
+                        choice_text_en = 'Smile at another child?',
+                        choice_text_pl = 'uśmiecha się do innych dzieci?',
+                        pass_choice = True)
+    folowUpQuestione8Choice5.save()
+    folowUpQuestione8Choice6 = Choice(question = folowUpQuestione8a,
+                        choice_text_en = 'Act shy at first but then smile?',
+                        choice_text_pl = 'jest na początku nieśmiałe, ale potem się uśmiecha?',
+                        pass_choice = True)
+    folowUpQuestione8Choice6.save()
+    folowUpQuestione8Choice7 = Choice(question = folowUpQuestione8a,
+                        choice_text_en = 'Get excited about another child?',
+                        choice_text_pl = 'ekscytuje się na widok innych dzieci?',
+                        pass_choice = True)
+    folowUpQuestione8Choice7.save()
+
+    folowUpQuestione8b = Question(question_no = 8, question_parent = folowUpQuestione8a,
+                        question_text_pl = 'Jak dziecko zwraca Pana/Pani uwagę na ten przedmiot? Czy wskazuje na niego palcem?',
+                        question_text_en = 'Does he/she respond to other children more than half of the time?',
+                        form_type = 'FOLLOW_UP',
+                        follow_up_answer = True,
+                        pass_choice = True)
+    folowUpQuestione8b.save()
+
+    # folowUpQuestione2 = Question(question_no = 2, question_parent = basicQuestione2,
+    #                     question_text_pl = 'Gdy Pan/Pani na coś wskazuje, to jak wtedy zazwyczaj reaguje Pana/Pani dziecko?',
+    #                     question_text_en = 'If you point at something, what does your child typically do?',
+    #                     form_type = 'FOLLOW_UP', follow_up_answer = False)
+    # folowUpQuestione2.save()
+    # folowUpQuestione2Choice1 = Choice(question = folowUpQuestione2,
+    #                     choice_text_en = 'Look at object?',
+    #                     choice_text_pl = 'patrzy na ten przedmiot?',
+    #                     pass_choice = True)
+    # folowUpQuestione2Choice1.save()
+    # folowUpQuestione2Choice2 = Choice(question = folowUpQuestione2,
+    #                     choice_text_en = 'Look at object?',
+    #                     choice_text_pl = 'patrzy na ten przedmiot?',
+    #                     pass_choice = True)
+    # folowUpQuestione2Choice2.save()
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0004_choice_pass_choise_alter_question_pass_choise'),
+        ('polls', '0001_question_follow_up_answer'),
     ]
 
     operations = [
-        migrations.RunPython(insert_basic_questionaire),
-        migrations.RunPython(insert_follow_up_questionaire),
+        migrations.RunPython(insert_questionaire),
     ]
