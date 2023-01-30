@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 #from models import Question
 
-from .models import Choice, Question
+from .models import Choice, Question, FilledQuestionair
 import json
 
 def index(request):
@@ -56,7 +56,7 @@ def generate_survey_id():
 
 @csrf_exempt
 def survey_injector(request):
-    questioner_id = generate_survey_id()
+    questionair_id = generate_survey_id()
     #take post api body part
     #save to db
     #return survey_id
@@ -67,6 +67,12 @@ def survey_injector(request):
     post_code = body['post_code']
     month_of_birth = body['month_of_birth']
     year_of_birth = body['year_of_birth']
+    date_of_birth = body['date_of_birth']
     score = body['score']
 
-    return JsonResponse({'questioner_id': questioner_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
+    #save to db
+    FilledQuestionair.objects.all()
+    db_injection = FilledQuestionair(questionair_id=questionair_id, post_code=post_code, month_of_birth=month_of_birth, year_of_birth=year_of_birth, score=score, date_of_birth=date_of_birth)
+    db_injection.save()
+
+    return JsonResponse({'questioner_id': questionair_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
