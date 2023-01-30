@@ -67,11 +67,12 @@ def survey_injector(request):
     post_code = body['post_code']
     month_of_birth = body['month_of_birth']
     year_of_birth = body['year_of_birth']
+    date_of_birth = body['date_of_birth']
     score = body['score']
 
     #save to db
     FilledQuestionair.objects.all()
-    db_injection = FilledQuestionair(questionair_id=questionair_id, post_code=post_code, month_of_birth=month_of_birth, year_of_birth=year_of_birth, score=score)
+    db_injection = FilledQuestionair(questionair_id=questionair_id, post_code=post_code, month_of_birth=month_of_birth, year_of_birth=year_of_birth, score=score, date_of_birth=date_of_birth)
     db_injection.save()
 
     return JsonResponse({'questioner_id': questionair_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})

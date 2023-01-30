@@ -77,8 +77,8 @@ class FilledQuestionair(models.Model):
     questionair_id = models.IntegerField(null=False, unique=True)
     score = models.IntegerField(null=False)
 
-    def __str__(self):
-        return self.questionair_id
+    def __str__(self):  
+        return str(self.questionair_id)
 
 class QustionAnswer(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
