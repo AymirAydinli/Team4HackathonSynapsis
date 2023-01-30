@@ -485,7 +485,7 @@ def insert_questionaire(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0001_question_follow_up_answer'),
+        ('polls', '0001_filledquestionair_date_of_birth_and_more'),
     ]
 
     operations = [

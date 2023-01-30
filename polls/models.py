@@ -72,7 +72,7 @@ class FilledQuestionair(models.Model):
     post_code = models.CharField(max_length=6, null=False)
     month_of_birth = models.IntegerField()
     year_of_birth = models.IntegerField()
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True)
     questionair_id = models.IntegerField(null=False, unique=True)
     score = models.IntegerField(null=False)
 
