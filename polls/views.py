@@ -62,7 +62,7 @@ def survey_injector(request):
     #return survey_id
 
     body = request.body.decode('utf-8')
-    body = json.loads(body)
+    body = json.loads(body)["base_form_data"]
     
     post_code = body['post_code']
     month_of_birth = body['month_of_birth']
