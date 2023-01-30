@@ -23,7 +23,6 @@ export default function followUp({questions}) {
     e.preventDefault()
     
     console.log("SUBMIT")
-    //fetch POST
     router.push('/')
     
     
