@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
+from django.views.decorators.csrf import csrf_exempt
+
+
 from django.http import HttpResponse, JsonResponse
 #from models import Question
 
@@ -51,15 +54,19 @@ def generate_survey_id():
 
     return id  
 
-
+@csrf_exempt
 def survey_injector(request):
-    survey_id = generate_survey_id()
+    questioner_id = generate_survey_id()
     #take post api body part
     #save to db
     #return survey_id
 
     body = request.body.decode('utf-8')
     body = json.loads(body)
-    #extract name from json body
-    name = body['name']
-    return JsonResponse({'id': survey_id, 'name': name})
+    
+    post_code = body['post_code']
+    month_of_birth = body['month_of_birth']
+    year_of_birth = body['year_of_birth']
+    score = body['score']
+
+    return JsonResponse({'questioner_id': questioner_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
