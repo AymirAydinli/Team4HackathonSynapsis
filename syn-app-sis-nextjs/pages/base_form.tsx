@@ -17,6 +17,8 @@ const base_form = ({questions}) => {
   //console.log(questions);
 
   const [showModal, setShowModal] = useState(false);
+  const [questionareIdModal, setquestionareIdModal] = useState(0)
+  let questionare_id = 0;
 
   const router = useRouter();
 
@@ -63,33 +65,40 @@ const base_form = ({questions}) => {
     let base_form_data = map_question_answer(e.target)
 
 
-    base_form_data["postal_code"] = document.querySelector('#code').value
-    base_form_data["birth_date"] = document.querySelector('#date').value
+    base_form_data["post_code"] = document.querySelector('#code').value
+    base_form_data["month_of_birth"] = document.querySelector('#date').value
+    base_form_data["year_of_birth"] = document.querySelector('#date').value
 
 
     console.log(base_form_data)
     try{
-      fetch("http://127.0.0.1:8000/api/post_base_form/", {
+      const respons = fetch("http://127.0.0.1:8000/api/survey_injector/", {
         method: 'POST',
         body: JSON.stringify({base_form_data}),
         headers: {
           'Content-Type': 'application/json',
         },
-        dataType: "json",
-      }).then(res=>res.json()).then(response=>console.log(response))
+      }).then(res=>res.json()).then(response=>{
+        console.log(response); 
+        questionare_id = response["questioner_id"]
+
+        console.log("AAAAA", questionare_id)
+        if(base_form_data["score"] <=2){
+          setShowModal(true)
+          setquestionareIdModal(questionare_id)
+        }
+        else{
+         router.push({
+            pathname:'/follow_up/[questionare_id]', 
+            query:{ questionare_id: questionare_id }
+        })
+        }
+
+      })
     }
     catch{
       console.log("POST error")
     }
-
-
-    if(base_form_data["score"] <=2){
-      setShowModal(true)
-    }
-    else{
-     router.push('/follow_up')
-    }
-
   }
 
   return (
@@ -130,7 +139,7 @@ const base_form = ({questions}) => {
             rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
             value='Zakończ ankietę' 
           />
-          <Modal isVisible={showModal}></Modal>
+          <Modal isVisible={showModal} questionare_id={questionareIdModal}></Modal>
           </Fragment>
         </form>
       </div>

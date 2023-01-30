@@ -20,7 +20,7 @@ export default function Home({id}) {
   const router = useRouter();
   console.log(id)
   return (
-    <main  className="max-w-flex min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
+    <main  className=" min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
       <div>
         <img
           className="mx-auto h-200 w-auto"
