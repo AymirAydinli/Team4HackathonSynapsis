@@ -23,6 +23,20 @@ export default function followUp({questions, query}) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    try{
+      const respons = fetch("http://127.0.0.1:8000/api/survey_injecttor_follow_up/", {
+        method: 'POST',
+        body: JSON.stringify({"1":"true"}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(res=>res.json()).then(response=>{
+        console.log(response) })
+    }
+    catch{
+      console.log("POST error")
+    }
     
     console.log("SUBMIT")
     router.push('/')
