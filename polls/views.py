@@ -77,3 +77,17 @@ def survey_injector(request):
     db_injection.save()
 
     return JsonResponse({'questioner_id': questionair_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
+
+def survey_injecttor_follow_up(request, questionair_id):
+    #check if survey_id exists
+    
+    try:
+        #questionair_id = request.GET['questionair_id']
+        FilledQuestionair.objects.get(questionair_id=questionair_id)
+        return JsonResponse({'questionair_id': questionair_id})
+
+    except FilledQuestionair.DoesNotExist:
+        return JsonResponse({'error': 'questionair_id not found'})
+
+    #if exists, save to db
+    #if not, return error
