@@ -25,9 +25,18 @@ export default function followUp({questions, query}) {
     e.preventDefault()
 
     try{
-      const respons = fetch("http://127.0.0.1:8000/api/survey_injecttor_follow_up/", {
+      const respons = fetch(`http://127.0.0.1:8000/api/survey_injecttor_follow_up/?questionare_id=${query.questionare_id}`, {
         method: 'POST',
-        body: JSON.stringify({"1":"true"}),
+        body: JSON.stringify({"base_form_data":
+            {
+                "id": 1,
+                "question": "Jaka jest reakcja dziecka?",
+                "answer": false,
+                "answer_value": false,
+                "custom_answer":"blabla"
+            }
+        
+        }),
         headers: {
           'Content-Type': 'application/json',
         },

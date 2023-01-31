@@ -79,11 +79,11 @@ def survey_injector(request):
     return JsonResponse({'questioner_id': questionair_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
 
 @csrf_exempt
-def survey_injecttor_follow_up(request, questionair_id):
+def survey_injecttor_follow_up(request):
     #check if survey_id exists
     
     try:
-        #questionair_id = request.GET['questionair_id']
+        questionair_id = request.GET['questionare_id']
         FilledQuestionair.objects.get(questionair_id=questionair_id)
     
         body = request.body.decode('utf-8')
