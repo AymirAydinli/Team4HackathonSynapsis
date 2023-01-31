@@ -103,20 +103,20 @@ const base_form = ({questions}) => {
   }
 
   return (
-    <main className=" w-auto flex item-center justify-center m-10">
+    <main className="flex item-center justify-center m-10">
 
       <div>
       
-        <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-0 lg:px-0 ">
+        <h1 className="mt-6 text-center text-lg md:text-3xl lg:text-3xl font-extrabold text-gray-900 py-12 px-4 sm:px-0 lg:px-0 ">
           Wypełnij wszystkie pola
         </h1>
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}  className="max-w-xs text-xs md:text-lg lg:text-lg  md:max-w-4xl lg:max-w-4xl ">
         <Fragment>
-        <div className=" flex items-center mb-4 space-x-3" >
-        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kod pocztowy</label>
-        <input type="text" id="code" name="code" className="inline-flex items-center border-2"required />
-        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Data urodzenia</label>
-        <input type="date" id="date" name="date"  className="inline-flex items-center border-2 "required />
+        <div className="flex flex-col md:flex-row lg:flex-row lg:items-center mb-4 space-x-3" >
+          <label className="flex  flex-row ml-2 text-xs md:text-sm lg:text-sm font-medium text-gray-900 dark:text-gray-300">Kod pocztowy</label>
+          <input type="text" id="code" name="code" className=" inline-flex items-center border-2"required />
+          <label className="ml-2 text-xs md:text-sm lg:text-sm font-medium text-gray-900 dark:text-gray-300">Data urodzenia</label>
+          <input type="date" id="date" name="date"  className="inline-flex items-center border-2 "required />
         </div>
           {questions["questions"].map(question => (
             <div className='border-2 rounded-md py-2 px-4 sm:px-6 lg:px-8 bg-slate-50' key={question.id} >
