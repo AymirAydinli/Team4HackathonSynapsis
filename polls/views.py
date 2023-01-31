@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 #from models import Question
 
-from .models import Choice, Question, FilledQuestionair
+from .models import Choice, Question, FilledQuestionair, QustionAnswer
 import json
 
 def index(request):
@@ -78,14 +78,33 @@ def survey_injector(request):
 
     return JsonResponse({'questioner_id': questionair_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
 
+@csrf_exempt
 def survey_injecttor_follow_up(request, questionair_id):
     #check if survey_id exists
     
     try:
         #questionair_id = request.GET['questionair_id']
         FilledQuestionair.objects.get(questionair_id=questionair_id)
-        return JsonResponse({'questionair_id': questionair_id})
+    
+        body = request.body.decode('utf-8')
+        body = json.loads(body)["base_form_data"]
 
+        quistionair = questionair_id
+        question = body["question"]
+        answer = body["answer"]
+        answer_value = body["answer_value"]
+        custom_answer = body["custom_answer"]
+
+        db_injection = QustionAnswer(   quistionair=FilledQuestionair.objects.get(questionair_id = questionair_id), 
+                                        question=Question.objects.get(question_text_pl = question), 
+                                        answer=Choice.objects.get(choice_text_pl = answer), 
+                                        answer_value=answer_value, 
+                                        custom_answer=custom_answer
+                                    )
+        db_injection.save()
+
+        return JsonResponse({'quistionair': quistionair, 'question': question, 'answer': answer, 'answer_value': answer_value, 'custom_answer': custom_answer})
+    
     except FilledQuestionair.DoesNotExist:
         return JsonResponse({'error': 'questionair_id not found'})
 

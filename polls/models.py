@@ -67,7 +67,7 @@ class WebText(models.Model):
 #     follow_up_answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
 
 class FilledQuestionair(models.Model):
-    questionair_id = models.IntegerField()
+    questionair_id = models.IntegerField(primary_key=True)
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
     post_code = models.CharField(max_length=6, null=False)
@@ -89,5 +89,8 @@ class QustionAnswer(models.Model):
     answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
     answer_value = models.BooleanField(null=True)
     custom_answer = models.CharField(max_length=2000)
+
+    def __str__(self):  
+        return str(self.quistionair)
 
 
