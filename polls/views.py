@@ -42,6 +42,7 @@ def baseQuestionList(request):
 
 def FollowUpQuestionList(request):
     data = list(Question.objects.values().filter(form_type="FOLLOW_UP"))
+    print(request.GET['questionare_id'])
     return JsonResponse({'questions': data})
 
 

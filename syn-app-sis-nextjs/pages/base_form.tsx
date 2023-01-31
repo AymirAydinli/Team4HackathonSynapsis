@@ -64,10 +64,11 @@ const base_form = ({questions}) => {
     e.preventDefault()
     let base_form_data = map_question_answer(e.target)
 
-
+    let date_split = document.querySelector('#date').value.split("-", 3)
     base_form_data["post_code"] = document.querySelector('#code').value
-    base_form_data["month_of_birth"] = document.querySelector('#date').value
-    base_form_data["year_of_birth"] = document.querySelector('#date').value
+    base_form_data["month_of_birth"] = date_split[1]
+    base_form_data["year_of_birth"] = date_split[0]
+    base_form_data["date_of_birth"] = document.querySelector('#date').value
 
 
     console.log(base_form_data)

@@ -1,37 +1,29 @@
 'use client';
 import { Inter } from '@next/font/google'
 import { useRouter } from 'next/navigation';
-import { GetStaticPaths} from 'next'
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const getStaticProps = async () =>{
-    const res = await fetch("http://127.0.0.1:8000/api/FollowUpQuestionList/");
-    const data = await res.json();
-  
-    return {
-      props: {questions: data}
-    }
-  }
 
-  export const getStaticPaths: GetStaticPaths = async () =>{
+export async function getServerSideProps(context){
+
+
+    const res = await fetch(`http://127.0.0.1:8000/api/FollowUpQuestionList/?questionare_id=${context.query.questionare_id}`);
+    const data = await res.json();
+
     return {
-      
-      paths: [
-        { params: { questionare_id: 'questionare_id' } },
-      ],
-      fallback: true,
-    }
-  }
-export default function followUp({questions, params}) {
+      props: {questions: data, query: context.query}
+  }}
+
+
+export default function followUp({questions, query}) {
   const router = useRouter();
-  console.log("ROUTER ID", router.asPath);
+  console.log(query.questionare_id)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     
-    console.log("QUEST ID",params)
     console.log("SUBMIT")
     router.push('/')
     
