@@ -62,10 +62,10 @@ export default function followUp({questions, query}) {
         </h1>
         <form onSubmit={handleSubmit}  className="max-w-xs text-xs md:text-lg lg:text-lg  md:max-w-4xl lg:max-w-4xl ">
 
-          {questions["questions"].map(question => (
+          {questions["questions"].map((question, index) => (
             <div className='border-2 rounded-md py-2 px-4 sm:px-6 lg:px-8 bg-slate-50' key={question.id} >
               <a>
-                <h3>{question.question_no}. {question.question_text_pl}</h3>
+                <h3>{index+1}. {question.question_text_pl}</h3>
               </a>
           
           <div className=" flex items-center mb-4 space-x-3 rounded-md " >

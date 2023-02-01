@@ -41,9 +41,27 @@ def baseQuestionList(request):
 
 
 def FollowUpQuestionList(request):
-    data = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choice_set'))
-    print(request.GET['questionare_id'])
-    return JsonResponse({'questions': data})
+    questionare_id = request.GET['questionare_id']
+    #follow_up_questions = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choices'))
+    filled = list(FilledQuestionair.objects.values().filter(questionair_id=questionare_id))
+    answered_questions = list(QustionAnswer.objects.values().filter(quistionair_id=filled[0]["id"]).filter(answer_value=False))
+
+    follow_up_questions = []
+    for answ in answered_questions:
+        question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=answ["question_id"]))[0]
+        follow_up_questions.append(question)
+        follow_up_question_level_1 = list(Question.objects.values().filter(form_type="FOLLOW_UP").filter(question_no=question["id"]))
+        #choices = list(Choice.objects.values().filter(question_id=question["id"]))
+
+        print(follow_up_question_level_1)
+
+    # q = Question.objects.prefetch_related('choices_set').filter(form_type="FOLLOW_UP")[0]
+    # print(q)
+    # print(q.choices_set)
+        
+
+    #print(request.GET['questionare_id'])
+    return JsonResponse({'questions': follow_up_questions})
 
 
 def generate_survey_id():
