@@ -41,7 +41,7 @@ def baseQuestionList(request):
 
 
 def FollowUpQuestionList(request):
-    data = list(Question.objects.values().filter(form_type="FOLLOW_UP"))
+    data = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choice_set'))
     print(request.GET['questionare_id'])
     return JsonResponse({'questions': data})
 
