@@ -29,11 +29,10 @@ export default function followUp({questions, query}) {
         method: 'POST',
         body: JSON.stringify({"base_form_data":
             {
-                "id": 1,
-                "question": "Jaka jest reakcja dziecka?",
-                "answer": false,
-                "answer_value": false,
-                "custom_answer":"blabla"
+              "question": "Jaka jest reakcja dziecka?",
+              "answer": "meble?",
+              "answer_value": "True",
+              "custom_answer": "Test API Injection"
             }
         
         }),

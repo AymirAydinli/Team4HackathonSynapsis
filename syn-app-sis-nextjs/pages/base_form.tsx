@@ -44,11 +44,11 @@ const base_form = ({questions}) => {
           answer = false
         } 
         // we need to change scoring to opposite for some questions
-        if (questions["questions"][question_id]["pass_choise"] == true ){
+        if (questions["questions"][question_id]["pass_choice"] == false ){
           answer = !answer
         }
         
-        if (answer == true){
+        if (answer == false){
           score++
         }
         mapped_questions[questions["questions"][question_id]["id"]] = answer
