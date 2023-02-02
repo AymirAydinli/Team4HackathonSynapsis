@@ -10,6 +10,7 @@ from django.http import HttpResponse, JsonResponse
 
 from .models import Choice, Question, FilledQuestionair, QustionAnswer
 import json
+from django.db.models import Prefetch
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -39,10 +40,41 @@ def baseQuestionList(request):
     data = list(Question.objects.values().filter(form_type="BASIC"))
     return JsonResponse({'questions': data})
 
+def parsQuestionList(query_result):
+    data = list()
+    for q in query_result:
+        choices_set = list()
+        for c in q.choices_set.all():
+            c_dict = {'id': c.id,
+                    'created_at': c.created_at,
+                    'updated_at': c.updated_at,
+                    'question_id' : c.question_id,
+                    'choice_text_en': c.choice_text_en,
+                    'choice_text_pl': c.choice_text_pl,
+                    'pass_choice': c.pass_choice
+            }
+            # print(c_dict)
+            choices_set.append(c_dict)
+        # print(choices_set)
+        q_dict = {'id': q.id,
+                'question_no': q.question_no,
+                'question_text_pl': q.question_text_pl,
+                'question_text_en': q.question_text_en,
+                'created_at': q.created_at,
+                'updated_at': q.updated_at,
+                'question_parent_id': q.question_parent_id,
+                'follow_up_answer': q.follow_up_answer,
+                'custom_answer': q.custom_answer,
+                'form_type': q.form_type,
+                'pass_choice': q.pass_choice,
+                'choices_set': choices_set}
+        # print(q_dict)
+        data.append(q_dict)
+    return data
 
 def FollowUpQuestionList(request):
-    data = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choice_set'))
-    print(request.GET['questionare_id'])
+    query_result = Question.objects.filter(form_type="FOLLOW_UP").prefetch_related(Prefetch('choices_set'))
+    data = parsQuestionList(query_result)
     return JsonResponse({'questions': data})
 
 
