@@ -1,7 +1,7 @@
 'use client';
 import { Inter } from '@next/font/google'
 import { useRouter } from 'next/navigation';
-
+import React, { Fragment, useState } from "react";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,10 +21,21 @@ export async function getServerSideProps(context){
 
 
 export default function followUp({questions,follow_up_quest,  query}) {
+
+  const [showMeYes, setShowMeYes] = useState(false);
+  const [showMeNo, setShowMeNo] = useState(false);
   const router = useRouter();
   console.log(query.questionare_id)
 
   console.log(follow_up_quest)
+
+  function toggleYes(){
+    setShowMeYes(!showMeYes);
+  }
+
+  function toggleNo(){
+    setShowMeNo(!showMeNo);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -74,11 +85,21 @@ export default function followUp({questions,follow_up_quest,  query}) {
               </a>
           
           <div className=" flex items-center mb-4 space-x-3 rounded-md " >
-            <input type="radio" name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
-              <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
-            <input type="radio"name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
-              <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nie</label>
+            <button type='button' onClick={toggleYes} name={"yes"+question.id} id={"yes"+question.id} className="inline-flex items-center"required>TAK</button>
+
+            <button type='button'  onClick={toggleNo}name={"no"+question.id} id={"no"+question.id} className="inline-flex items-center " required>NIE</button> 
+
           </div>
+          <div id={"yes"+question.id} style={{
+            display: showMeYes?"block":"none"
+            }}>
+              There Should be YES data
+            </div>
+          <div id={"no"+question.id} style={{
+              display: showMeNo?"block":"none"
+            }}>
+              There Should be NO data
+            </div>
             </div>
           ))
 
