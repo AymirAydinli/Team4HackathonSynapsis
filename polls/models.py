@@ -17,6 +17,7 @@ class Question(models.Model):
     updated_at = models.DateTimeField(auto_now = True, editable=False)
     question_parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, related_name='question_children')
     follow_up_answer = models.BooleanField(default=False, null=True)
+    custom_answer = models.BooleanField(default=False, null=True)
     
     FORM_TYPE_CHOISE = [(BASIC, 'Basic'), (FOLLOW_UP, 'Follow-up'),]
 
@@ -35,7 +36,7 @@ class Question(models.Model):
 class Choice(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices_set', serialize=True)
     choice_text_en = models.CharField(max_length=200)
     choice_text_pl = models.CharField(max_length=200)
     pass_choice = models.BooleanField(null=True)
