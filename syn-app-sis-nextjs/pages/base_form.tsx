@@ -25,7 +25,7 @@ const base_form = ({questions}) => {
   const map_question_answer = (answers) =>
   {
     
-    let mapped_questions = {}
+    let mapped_questions = {"answers":[]}
     let question_id = 0
     let score = 0
     let answer
@@ -51,7 +51,7 @@ const base_form = ({questions}) => {
         if (answer == false){
           score++
         }
-        mapped_questions[questions["questions"][question_id]["id"]] = answer
+        mapped_questions["answers"][questions["questions"][question_id]["id"]] = answer
         question_id++
       }    
     }

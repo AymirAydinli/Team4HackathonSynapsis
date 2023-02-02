@@ -108,6 +108,25 @@ def survey_injector(request):
     db_injection = FilledQuestionair(questionair_id=questionair_id, post_code=post_code, month_of_birth=month_of_birth, year_of_birth=year_of_birth, score=score, date_of_birth=date_of_birth)
     db_injection.save()
 
+    try:
+        for idx, answer in enumerate(body['answers']):
+            if idx == 0:
+                # questions are iterated from 1
+                pass
+            else:
+                basic_question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=idx))[0]["question_text_pl"]
+                print(basic_question)
+                print(answer)
+                db_injection = QustionAnswer(   
+                    quistionair=FilledQuestionair.objects.get(questionair_id = questionair_id), 
+                    question=Question.objects.get(question_text_pl = basic_question), 
+                    #answer=Choice.objects.get(choice_text_pl = answer), 
+                    answer_value=answer, 
+                    custom_answer=""
+                                    )
+            db_injection.save()
+    except Exception as e:
+        print(e)
     return JsonResponse({'questioner_id': questionair_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
 
 @csrf_exempt
