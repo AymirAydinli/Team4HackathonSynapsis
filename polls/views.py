@@ -10,6 +10,7 @@ from django.http import HttpResponse, JsonResponse
 
 from .models import Choice, Question, FilledQuestionair, QustionAnswer
 import json
+from django.db.models import Prefetch
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -39,29 +40,113 @@ def baseQuestionList(request):
     data = list(Question.objects.values().filter(form_type="BASIC"))
     return JsonResponse({'questions': data})
 
+def parsQuestionList(query_result):
+    data = list()
+    for q in query_result:
+        choices_set = list()
+        for c in q.choices_set.all():
+            c_dict = {'id': c.id,
+                    'created_at': c.created_at,
+                    'updated_at': c.updated_at,
+                    'question_id' : c.question_id,
+                    'choice_text_en': c.choice_text_en,
+                    'choice_text_pl': c.choice_text_pl,
+                    'pass_choice': c.pass_choice
+            }
+            # print(c_dict)
+            choices_set.append(c_dict)
+        # print(choices_set)
+        q_dict = {'id': q.id,
+                'question_no': q.question_no,
+                'question_text_pl': q.question_text_pl,
+                'question_text_en': q.question_text_en,
+                'created_at': q.created_at,
+                'updated_at': q.updated_at,
+                'question_parent_id': q.question_parent_id,
+                'follow_up_answer': q.follow_up_answer,
+                'custom_answer': q.custom_answer,
+                'form_type': q.form_type,
+                'pass_choice': q.pass_choice,
+                'choices_set': choices_set}
+        # print(q_dict)
+        data.append(q_dict)
+    return data
 
-def FollowUpQuestionList(request):
+def answeredBaseQuestionList(request):
     questionare_id = request.GET['questionare_id']
     #follow_up_questions = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choices'))
     filled = list(FilledQuestionair.objects.values().filter(questionair_id=questionare_id))
     answered_questions = list(QustionAnswer.objects.values().filter(quistionair_id=filled[0]["id"]).filter(answer_value=False))
 
-    follow_up_questions = []
+    base_question_id_list = []
+
     for answ in answered_questions:
-        question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=answ["question_id"]))[0]
-        follow_up_questions.append(question)
-        follow_up_question_level_1 = list(Question.objects.values().filter(form_type="FOLLOW_UP").filter(question_no=question["id"]))
-        #choices = list(Choice.objects.values().filter(question_id=question["id"]))
+        base_question_id_list.append(answ["question_id"])
 
-        print(follow_up_question_level_1)
+    print(base_question_id_list)
 
-    # q = Question.objects.prefetch_related('choices_set').filter(form_type="FOLLOW_UP")[0]
-    # print(q)
-    # print(q.choices_set)
+    base_false_questions = list(Question.objects.values().filter(form_type="BASIC").filter(question_no__in=base_question_id_list))
+    return JsonResponse({'questions': base_false_questions})
+
+def FollowUpQuestionList(request):
+
+    # questionare_id = request.GET['questionare_id']
+    # #follow_up_questions = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choices'))
+    # filled = list(FilledQuestionair.objects.values().filter(questionair_id=questionare_id))
+    # answered_questions = list(QustionAnswer.objects.values().filter(quistionair_id=filled[0]["id"]).filter(answer_value=False))
+
+    # follow_up_questions = []
+    # for answ in answered_questions:
+    #     question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=answ["question_id"]))[0]
+    #     follow_up_questions.append(question)
+    #     follow_up_question_level_1 = list(Question.objects.values().filter(form_type="FOLLOW_UP").filter(question_no=question["id"]))
+    #     #choices = list(Choice.objects.values().filter(question_id=question["id"]))
+
+    #     print(follow_up_question_level_1)
+
+    # # q = Question.objects.prefetch_related('choices_set').filter(form_type="FOLLOW_UP")[0]
+    # # print(q)
+    # # print(q.choices_set)
         
 
-    #print(request.GET['questionare_id'])
-    return JsonResponse({'questions': follow_up_questions})
+    # #print(request.GET['questionare_id'])
+    # return JsonResponse({'questions': follow_up_questions})
+
+    questionare_id = request.GET['questionare_id']
+    #follow_up_questions = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choices'))
+    filled = list(FilledQuestionair.objects.values().filter(questionair_id=questionare_id))
+    answered_questions = list(QustionAnswer.objects.values().filter(quistionair_id=filled[0]["id"]).filter(answer_value=False))
+
+    base_question_id_list = []
+
+    for answ in answered_questions:
+        base_question_id_list.append(answ["question_id"])
+
+    print(base_question_id_list)
+
+    base_false_questions = list(Question.objects.values().filter(form_type="BASIC").filter(question_no__in=base_question_id_list))
+
+    query_result = Question.objects.filter(form_type="FOLLOW_UP").prefetch_related(Prefetch('choices_set'))
+    follow_up_questions = parsQuestionList(query_result)
+
+    filtered_follow_up_questions = []
+    for answ in answered_questions:
+        for foll_up in follow_up_questions:
+            if foll_up["question_no"] == answ["question_id"]:
+                filtered_follow_up_questions.append(foll_up)
+
+
+        # question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=answ["question_id"]))[0]
+        
+        # follow_up_question_level_1 = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related(Prefetch('choices_set')).filter(question_no=question["id"]))
+        # follow_up_questions.append(follow_up_question_level_1)
+
+    aaa = {"data":[{'questions': base_false_questions}, {'follow_up': follow_up_questions}]}
+    #print(aaa)
+
+
+    return JsonResponse({"data":[{'questions': base_false_questions}, {'follow_up': follow_up_questions}]})
+
 
 
 def generate_survey_id():

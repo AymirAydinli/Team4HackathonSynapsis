@@ -9,17 +9,22 @@ const inter = Inter({ subsets: ['latin'] })
 export async function getServerSideProps(context){
 
 
-    const res = await fetch(`http://127.0.0.1:8000/api/FollowUpQuestionList/?questionare_id=${context.query.questionare_id}`);
-    const data = await res.json();
+    const res_follow = await fetch(`http://127.0.0.1:8000/api/FollowUpQuestionList/?questionare_id=${context.query.questionare_id}`);
+    const data_follow = await res_follow.json();
+
+    const res_base_answ = await fetch(`http://127.0.0.1:8000/api/answeredBaseQuestionList/?questionare_id=${context.query.questionare_id}`);
+    const data_base_answ = await res_base_answ.json();
 
     return {
-      props: {questions: data, query: context.query}
+      props: {questions: data_base_answ, follow_up_quest: data_follow,  query: context.query}
   }}
 
 
-export default function followUp({questions, query}) {
+export default function followUp({questions,follow_up_quest,  query}) {
   const router = useRouter();
   console.log(query.questionare_id)
+
+  console.log(follow_up_quest)
 
   const handleSubmit = (e) => {
     e.preventDefault()
