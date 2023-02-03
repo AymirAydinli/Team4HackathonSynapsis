@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation';
 import Modal from '@/components/modal';
 
 import React, { Fragment, useState } from "react";
+import { type } from 'os';
 
 export const getStaticProps = async () =>{
   const res = await fetch("http://127.0.0.1:8000/api/baseQuestionList/");
@@ -13,7 +14,7 @@ export const getStaticProps = async () =>{
 }
 
 
-const base_form = ({questions}) => {
+const base_form = ({questions}: {questions:any}) => {
   //console.log(questions);
 
   const [showModal, setShowModal] = useState(false);
@@ -22,7 +23,7 @@ const base_form = ({questions}) => {
 
   const router = useRouter();
 
-  const map_question_answer = (answers) =>
+  const map_question_answer = (answers: Array<Event>) =>
   {
     
     let mapped_questions = {"answers":[]}
@@ -62,6 +63,7 @@ const base_form = ({questions}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(e.target)
     let base_form_data = map_question_answer(e.target)
 
     let date_split = document.querySelector('#date').value.split("-", 3)
