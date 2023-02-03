@@ -68,6 +68,7 @@ class WebText(models.Model):
 #     question_follow_up = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True, related_name='question_follow_up_id')
 #     follow_up_answer = models.ForeignKey(Choice, on_delete=models.SET_NULL, null=True)
 
+# questionnaire!!!
 class FilledQuestionair(models.Model):
     questionair_id = models.IntegerField(primary_key=True)
     created_at = models.DateTimeField(auto_now_add = True, editable=False)

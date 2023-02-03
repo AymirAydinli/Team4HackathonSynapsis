@@ -143,10 +143,8 @@ def FollowUpQuestionList(request):
     aaa = {"data":[{'questions': base_false_questions}, {'follow_up': follow_up_questions}]}
     #print(aaa)
 
-
-    return JsonResponse({"data":[{'questions': base_false_questions}, {'follow_up': follow_up_questions}]})
-
-
+    # return JsonResponse({"data":[{'questions': base_false_questions}, {'follow_up': follow_up_questions}]})
+    return JsonResponse({'follow_up': follow_up_questions})
 
 def generate_survey_id():
     #random id generator
@@ -161,12 +159,8 @@ def generate_survey_id():
 def survey_injector(request):
     questionair_id = generate_survey_id()
     #take post api body part
-    #save to db
-    #return survey_id
-
     body = request.body.decode('utf-8')
     body = json.loads(body)["base_form_data"]
-    
     post_code = body['post_code']
     month_of_birth = body['month_of_birth']
     year_of_birth = body['year_of_birth']
@@ -174,27 +168,19 @@ def survey_injector(request):
     score = body['score']
 
     #save to db
-    FilledQuestionair.objects.all()
-    db_injection = FilledQuestionair(questionair_id=questionair_id, post_code=post_code, month_of_birth=month_of_birth, year_of_birth=year_of_birth, score=score, date_of_birth=date_of_birth)
-    db_injection.save()
+    filledQuestionair = FilledQuestionair(questionair_id=questionair_id, post_code=post_code, month_of_birth=month_of_birth, year_of_birth=year_of_birth, score=score, date_of_birth=date_of_birth)
+    filledQuestionair.save()
 
     try:
         for idx, answer in enumerate(body['answers']):
-            if idx == 0:
-                # questions are iterated from 1
-                pass
-            else:
-                basic_question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=idx))[0]["question_text_pl"]
-                print(basic_question)
-                print(answer)
-                db_injection = QustionAnswer(   
-                    quistionair=FilledQuestionair.objects.get(questionair_id = questionair_id), 
-                    question=Question.objects.get(question_text_pl = basic_question), 
-                    #answer=Choice.objects.get(choice_text_pl = answer), 
+            if answer != None:
+                qustionAnswer = QustionAnswer(   
+                    quistionair=filledQuestionair, 
+                    question_id=idx,
                     answer_value=answer, 
                     custom_answer=""
                                     )
-            db_injection.save()
+                qustionAnswer.save()
     except Exception as e:
         print(e)
     return JsonResponse({'questioner_id': questionair_id, 'post_code': post_code, 'month_of_birth': month_of_birth, 'year_of_birth': year_of_birth, 'score': score})
@@ -204,11 +190,17 @@ def survey_injecttor_follow_up(request):
     #check if survey_id exists
     
     try:
+        print(request.GET.keys())
+
         questionair_id = request.GET['questionare_id']
         FilledQuestionair.objects.get(questionair_id=questionair_id)
-    
+
         body = request.body.decode('utf-8')
+        print(body)
+
         body = json.loads(body)["base_form_data"]
+        for k in body.keys() :
+            print("[{}] : {}".format(k, body[k]))
 
         quistionair = questionair_id
         question = body["question"]
