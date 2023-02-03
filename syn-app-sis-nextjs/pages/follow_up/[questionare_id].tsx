@@ -28,6 +28,7 @@ export default function followUp({questions,follow_up_quest,  query}) {
   console.log(query.questionare_id)
 
   console.log(follow_up_quest)
+  console.log(questions)
 
   function toggleYes(){
     setShowMeYes(!showMeYes);
@@ -37,30 +38,38 @@ export default function followUp({questions,follow_up_quest,  query}) {
     setShowMeNo(!showMeNo);
   }
 
+  const showQuestionYesArray = [false, false, false, false, false,false, false, false, false, false,false, false, false, false, false,false, false, false, false, false]
+
+  function toggleArrayVal(id, array){
+    array[id] = !array[id]
+    return array
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(e)
 
-    try{
-      const respons = fetch(`http://127.0.0.1:8000/api/survey_injecttor_follow_up/?questionare_id=${query.questionare_id}`, {
-        method: 'POST',
-        body: JSON.stringify({"base_form_data":
-            {
-              "question": "Jaka jest reakcja dziecka?",
-              "answer": "meble?",
-              "answer_value": "True",
-              "custom_answer": "Test API Injection"
-            }
+    // try{
+    //   const respons = fetch(`http://127.0.0.1:8000/api/survey_injecttor_follow_up/?questionare_id=${query.questionare_id}`, {
+    //     method: 'POST',
+    //     body: JSON.stringify({"base_form_data":
+    //         {
+    //           "question": "Jaka jest reakcja dziecka?",
+    //           "answer": "meble?",
+    //           "answer_value": "True",
+    //           "custom_answer": "Test API Injection"
+    //         }
         
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then(res=>res.json()).then(response=>{
-        console.log(response) })
-    }
-    catch{
-      console.log("POST error")
-    }
+    //     }),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   }).then(res=>res.json()).then(response=>{
+    //     console.log(response) })
+    // }
+    // catch{
+    //   console.log("POST error")
+    // }
     
     console.log("SUBMIT")
     router.push('/')
@@ -81,29 +90,45 @@ export default function followUp({questions,follow_up_quest,  query}) {
           {questions["questions"].map((question, index) => (
             <div className='border-2 rounded-md py-2 px-4 sm:px-6 lg:px-8 bg-slate-50' key={question.id} >
               <a>
-                <h3>{index+1}. {question.question_text_pl}</h3>
+                <h3 className='py-5'>{index+1}. {question.question_text_pl}</h3>
               </a>
+              {follow_up_quest["follow_up"].map((fol_question, index)=>(
+              
+              fol_question.question_no==question.id &&
+              <div className='border-2 rounded-md py-2 px-4 sm:px-6 lg:px-8 bg-slate-100' key={fol_question.choices} >
+              <a>
+                <h3 className='py-5'>{index+1}. {fol_question.question_text_pl}</h3>
+              </a>
+              
+              {fol_question["choices_set"].map((choice, index) =>(
+                <div className='border-2 rounded-md py-2 px-4 sm:px-6 lg:px-8 bg-slate-50' key={fol_question} >
+                <a>
+                  <h3 className='py-5'>{index+1}. {choice.choice_text_pl}</h3>
+                </a>
+                <div className=" flex items-center mb-4 space-x-3 rounded-md " >
+                <input type="radio" name={choice.id} id={"yes" + fol_question.id + "_" +choice.id} className="inline-flex items-center"required/> 
+                  <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
+                <input type="radio"name={choice.id} id={"no" + fol_question.id + "_" +choice.id} className="inline-flex items-center " required/> 
+                  <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nie</label>
+              </div>
+                </div>
+                 ))}
+
+
+
+
+              </div>
+
+
+
+              ))}
+            </div>
+          ))}
+
           
-          <div className=" flex items-center mb-4 space-x-3 rounded-md " >
-            <button type='button' onClick={toggleYes} name={"yes"+question.id} id={"yes"+question.id} className="inline-flex items-center"required>TAK</button>
 
-            <button type='button'  onClick={toggleNo}name={"no"+question.id} id={"no"+question.id} className="inline-flex items-center " required>NIE</button> 
+  
 
-          </div>
-          <div id={"yes"+question.id} style={{
-            display: showMeYes?"block":"none"
-            }}>
-              There Should be YES data
-            </div>
-          <div id={"no"+question.id} style={{
-              display: showMeNo?"block":"none"
-            }}>
-              There Should be NO data
-            </div>
-            </div>
-          ))
-
-          }
           <input type='submit'
             className="group relative flex-center justify-center
             py-2 px-4 border border-transparent text-sm font-medium
