@@ -127,9 +127,9 @@ const base_form = ({questions}: {questions:any}) => {
               </a>
           
           <div className=" flex items-center mb-4 space-x-3 rounded-md " >
-            <input type="radio" name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
+            <input type="radio" onClick={addYesAnswer} name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
-            <input type="radio"name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
+            <input type="radio" onClick={addYesAnswer} name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nie</label>
           </div>
             </div>
