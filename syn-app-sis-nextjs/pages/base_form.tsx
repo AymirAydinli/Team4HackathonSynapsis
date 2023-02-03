@@ -14,7 +14,7 @@ export const getStaticProps = async () =>{
 }
 
 
-const base_form = ({questions}: {questions:any}) => {
+const BaseForm = ({questions}: {questions:any}) => {
   //console.log(questions);
 
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +23,7 @@ const base_form = ({questions}: {questions:any}) => {
 
   const router = useRouter();
 
-  const map_question_answer = (answers: Array<Event>) =>
+  const map_question_answer = (answers: any) =>
   {
     
     let mapped_questions = {"answers":[]}
@@ -127,9 +127,9 @@ const base_form = ({questions}: {questions:any}) => {
               </a>
           
           <div className=" flex items-center mb-4 space-x-3 rounded-md " >
-            <input type="radio" onClick={addYesAnswer} name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
+            <input type="radio" name={question.id} id={"yes"+question.id} className="inline-flex items-center"required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
-            <input type="radio" onClick={addYesAnswer} name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
+            <input type="radio"name={question.id} id={"no"+question.id} className="inline-flex items-center " required/> 
               <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nie</label>
           </div>
             </div>
@@ -151,4 +151,4 @@ const base_form = ({questions}: {questions:any}) => {
   );
 };
   
-export default base_form;
+export default BaseForm;

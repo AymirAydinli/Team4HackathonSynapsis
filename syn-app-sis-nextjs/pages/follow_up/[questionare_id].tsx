@@ -20,25 +20,39 @@ export async function getServerSideProps(context){
   }}
 
 
-export default function followUp({questions,follow_up_quest,  query}) {
+export default function FollowUp({questions,follow_up_quest,  query}) {
 
   const [showMeYes, setShowMeYes] = useState(false);
   const [showMeNo, setShowMeNo] = useState(false);
+
+  const [myArray, updateMyArray] = useState([]);
+
   const router = useRouter();
   console.log(query.questionare_id)
 
   console.log(follow_up_quest)
   console.log(questions)
 
-  function toggleYes(){
-    setShowMeYes(!showMeYes);
+  const handleYesNoClick = (e) => {
+    //e.preventDefault()
+    //updateMyArray( arr => [...arr["id"], true]);
+    //let aa = document.getElementById(id).click()
+    //let aaaa = document.querySelector("#" + id)
+    console.log(e)
+  }
+
+  const handleNoClick = (e) => {
+    //e.preventDefault()
+    //updateMyArray( arr => [...arr["id"], true]);
+    //let aa = document.getElementById(id).click()
+    //let aaaa = document.querySelector("#" + id)
+    console.log(e)
   }
 
   function toggleNo(){
     setShowMeNo(!showMeNo);
   }
 
-  const showQuestionYesArray = [false, false, false, false, false,false, false, false, false, false,false, false, false, false, false,false, false, false, false, false]
 
   function toggleArrayVal(id, array){
     array[id] = !array[id]
@@ -106,9 +120,9 @@ export default function followUp({questions,follow_up_quest,  query}) {
                   <h3 className='py-5'>{index+1}. {choice.choice_text_pl}</h3>
                 </a>
                 <div className=" flex items-center mb-4 space-x-3 rounded-md " >
-                <input type="radio" name={choice.id} id={"yes" + fol_question.id + "_" +choice.id} className="inline-flex items-center"required/> 
+                <input type="radio" name={choice.id} onChange={handleYesNoClick} value="true" id={"yes" + fol_question.id + "_" +choice.id} className="inline-flex items-center"required/> 
                   <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tak</label>
-                <input type="radio"name={choice.id} id={"no" + fol_question.id + "_" +choice.id} className="inline-flex items-center " required/> 
+                <input type="radio"name={choice.id} onChange={handleYesNoClick} value="false" id={"no" + fol_question.id + "_" +choice.id} className="inline-flex items-center " required/> 
                   <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nie</label>
               </div>
                 </div>
