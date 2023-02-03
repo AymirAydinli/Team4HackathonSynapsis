@@ -70,10 +70,81 @@ def parsQuestionList(query_result):
         data.append(q_dict)
     return data
 
+def answeredBaseQuestionList(request):
+    questionare_id = request.GET['questionare_id']
+    #follow_up_questions = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choices'))
+    filled = list(FilledQuestionair.objects.values().filter(questionair_id=questionare_id))
+    answered_questions = list(QustionAnswer.objects.values().filter(quistionair_id=filled[0]["id"]).filter(answer_value=False))
+
+    base_question_id_list = []
+
+    for answ in answered_questions:
+        base_question_id_list.append(answ["question_id"])
+
+    print(base_question_id_list)
+
+    base_false_questions = list(Question.objects.values().filter(form_type="BASIC").filter(question_no__in=base_question_id_list))
+    return JsonResponse({'questions': base_false_questions})
+
 def FollowUpQuestionList(request):
+
+    # questionare_id = request.GET['questionare_id']
+    # #follow_up_questions = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choices'))
+    # filled = list(FilledQuestionair.objects.values().filter(questionair_id=questionare_id))
+    # answered_questions = list(QustionAnswer.objects.values().filter(quistionair_id=filled[0]["id"]).filter(answer_value=False))
+
+    # follow_up_questions = []
+    # for answ in answered_questions:
+    #     question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=answ["question_id"]))[0]
+    #     follow_up_questions.append(question)
+    #     follow_up_question_level_1 = list(Question.objects.values().filter(form_type="FOLLOW_UP").filter(question_no=question["id"]))
+    #     #choices = list(Choice.objects.values().filter(question_id=question["id"]))
+
+    #     print(follow_up_question_level_1)
+
+    # # q = Question.objects.prefetch_related('choices_set').filter(form_type="FOLLOW_UP")[0]
+    # # print(q)
+    # # print(q.choices_set)
+        
+
+    # #print(request.GET['questionare_id'])
+    # return JsonResponse({'questions': follow_up_questions})
+
+    questionare_id = request.GET['questionare_id']
+    #follow_up_questions = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related('choices'))
+    filled = list(FilledQuestionair.objects.values().filter(questionair_id=questionare_id))
+    answered_questions = list(QustionAnswer.objects.values().filter(quistionair_id=filled[0]["id"]).filter(answer_value=False))
+
+    base_question_id_list = []
+
+    for answ in answered_questions:
+        base_question_id_list.append(answ["question_id"])
+
+    print(base_question_id_list)
+
+    base_false_questions = list(Question.objects.values().filter(form_type="BASIC").filter(question_no__in=base_question_id_list))
+
     query_result = Question.objects.filter(form_type="FOLLOW_UP").prefetch_related(Prefetch('choices_set'))
-    data = parsQuestionList(query_result)
-    return JsonResponse({'questions': data})
+    follow_up_questions = parsQuestionList(query_result)
+
+    filtered_follow_up_questions = []
+    for answ in answered_questions:
+        for foll_up in follow_up_questions:
+            if foll_up["question_no"] == answ["question_id"]:
+                filtered_follow_up_questions.append(foll_up)
+
+
+        # question = list(Question.objects.values().filter(form_type="BASIC").filter(question_no=answ["question_id"]))[0]
+        
+        # follow_up_question_level_1 = list(Question.objects.values().filter(form_type="FOLLOW_UP").prefetch_related(Prefetch('choices_set')).filter(question_no=question["id"]))
+        # follow_up_questions.append(follow_up_question_level_1)
+
+    aaa = {"data":[{'questions': base_false_questions}, {'follow_up': follow_up_questions}]}
+    #print(aaa)
+
+
+    return JsonResponse({"data":[{'questions': base_false_questions}, {'follow_up': follow_up_questions}]})
+
 
 
 def generate_survey_id():
