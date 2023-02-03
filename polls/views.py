@@ -12,6 +12,10 @@ from .models import Choice, Question, FilledQuestionair, QustionAnswer
 import json
 from django.db.models import Prefetch
 
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -223,3 +227,87 @@ def survey_injecttor_follow_up(request):
 
     #if exists, save to db
     #if not, return error
+
+def printSummary(request):
+
+    questionair_id = request.GET['questionare_id']
+    filledQuestionair = FilledQuestionair.objects.get(questionair_id=questionair_id)
+
+    # Create a file-like buffer to receive PDF data.
+    buffer = io.BytesIO()
+
+    # Create the PDF object, using the buffer as its "file."
+    p = canvas.Canvas(buffer, pagesize='A4')
+    p.setFont('Helvetica', 12)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    p.drawString(60, 700, "Drogi Rodzicu!")
+    p.drawString(60, 670, "Wynik Twojego Dziecka: {} / 20 punktów.".format(filledQuestionair.score))
+    p.drawString(60, 650, "Identyfikator Twojego badania wykonanego {} to: {}".format(filledQuestionair.created_at, questionair_id))
+    if filledQuestionair.score < 3:
+        p.drawString(60, 620, "Jest nam bardzo milo poinformowac, ze rozwoj Twojego Malucha w zakresie umiejetnosci")
+        p.drawString(60, 600, "spoleczno-komunikacyjnych nie budzi niepokoju. Istnieje niskie ryzyko wystapienia")
+        p.drawString(60, 580, "spektrum autyzmu.")
+        p.drawString(60, 550, "Pamietaj jednak, ze kwestionariusz M-CHAT-R jest jedynie wstepnym badaniem")
+        p.drawString(60, 530, "przesiewowym, a nie narzedziem diagnostycznym. Jesli mimo wszystko niepokoi Cie rozwój")
+        p.drawString(60, 510, "Twojego dziecka, skontaktuj sie ze specjalista.")
+
+        p.drawString(60, 480, "Pamietaj:")
+        p.drawString(60, 460, " 1. Jesli Twoje dziecko w chwili badania nie ukonczylo jeszcze 24 miesiecy, zalecane jest")
+        p.drawString(60, 440, "     powtorne wypelnienie kwestionariusza M-CHAT-R pomiedzy 24 a 30 miesiacem zycia.")
+        p.drawString(60, 420, " 2. Mozesz skorzystac z bezplatnej teleporady w ramach kontraktu z NFZ.")
+        p.drawString(60, 400, "     W celu umowienia sie wypelnij ankiete: https://ankieta.synapsis.waw.pl/ankieta/ ")
+        p.drawString(60, 380, " 3. Wiecej informacji na temat umiejetnosci, ktore dziecko w tym wieku powinno posiadac")
+        p.drawString(60, 360, "     oraz wspierania jego rozwoju znajdziesz na stronie:")
+        p.drawString(60, 340, "     http://badabada.pl/dla-rodzicow/rozwoj-dziecka")
+    elif filledQuestionair.score < 8:
+        p.drawString(60, 620, "Chcielibysmy poinformowac, ze badanie Twojego Malucha wykazuje pewne")
+        p.drawString(60, 600, "nieprawidlowosci w zakresie rozwoju, ktore wskazuja na srednie ryzyko wystepowania")
+        p.drawString(60, 580, "spektrum autyzmu u Twojego dziecka.")
+        p.drawString(60, 550, "Pamietaj jednak, ze kwestionariusz M-CHAT-R jest jedynie wstepnym badaniem przesiewowym.")
+        p.drawString(60, 530, "Dlatego byloby wazne, abys skontaktowal sie ze specjalista. W niektorych przypadkach")
+        p.drawString(60, 510, "po takiej rozmowie okazuje sie, ze nie ma powodów do niepokoju o rozwoj dziecka,")
+        p.drawString(60, 490, "a w innych, ze potrzebna jest jednak specjalistyczna konsultacja lub diagnoza dziecka.")
+
+        p.drawString(60, 460, "Co mozesz teraz zrobic:")
+        p.drawString(60, 440, " 1. Skontaktuj sie ze specjalista (lekarzem, psychologiem, pedagogiem), aby porozmawiac")
+        p.drawString(60, 420, "     i omowic wyniki badania oraz wyjasnic swoje watpliwosci")
+        p.drawString(60, 400, " 2. Mozesz skorzystac z bezplatnej teleporady w ramach kontraktu z NFZ.")
+        p.drawString(60, 380, "     W celu umowienia sie wypelnij ankiete: https://ankieta.synapsis.waw.pl/ankieta/ ")
+        p.drawString(60, 360, " 3. Wiecej informacji na temat umiejetnosci, ktore dziecko w tym wieku powinno posiadac")
+        p.drawString(60, 340, "     oraz wspierania jego rozwoju znajdziesz na stronie:")
+        p.drawString(60, 320, "     http://badabada.pl/dla-rodzicow/rozwoj-dziecka")
+    else :
+        p.drawString(60, 620, "Chcielibysmy poinformowac, ze rozwój Twojego Malucha przebiega nietypowo, a wynik")
+        p.drawString(60, 600, "badania wskazuje wysokie ryzyka wystapienia u niego spektrum autyzmu.")
+
+        p.drawString(60, 570, "Pamietaj jednak, ze kwestionariusz M-CHAT-R jest jedynie wstepnym badaniem przesiewowym,")
+        p.drawString(60, 550, "a nie narzedziem diagnostycznym. Dlatego bardzo wazne jest, abys skonsultowal sie ze")
+        p.drawString(60, 530, "specjalista zajmujacym sie diagnozowaniem spektrum autyzmu u dzieci. Podczas rozmowy")
+        p.drawString(60, 510, "wyjasnisz swoje watpliwosci, uzyskasz porade oraz wskazowki odnosnie dalszych dzialan.")
+
+        p.drawString(60, 480, "Pamietaj:")
+        p.drawString(60, 460, " 1. Jesli Twoje dziecko w chwili badania nie ukonczylo jeszcze 24 miesiecy, zalecane jest")
+        p.drawString(60, 440, "     powtorne wypelnienie kwestionariusza M-CHAT-R pomiedzy 24 a 30 miesiacem zycia.")
+        p.drawString(60, 420, " 2. Mozesz skorzystac z bezplatnej teleporady w ramach kontraktu z NFZ.")
+        p.drawString(60, 400, "     W celu umowienia sie wypelnij ankiete: https://ankieta.synapsis.waw.pl/ankieta/ ")
+
+        p.drawString(60, 380, " 3. W oczekiwaniu na konsultacje ze specjalista lub diagnoze:")
+        p.drawString(60, 360, "     - prowadz notatki o zdobywanych przez dziecko umiejetnosciach i zachowaniach,")
+        p.drawString(60, 340, "         ktore Cie niepokoja")
+        p.drawString(60, 320, "     - nagrywaj swoje dziecko podczas zabawy, w kontakcie z osobami bliskimi i innymi dziecmi")
+        p.drawString(60, 300, "     - zglos sie do swojej rejonowej Poradni Psychologiczno-Pedagogicznej")
+
+        p.drawString(60, 280, " 4. Wiecej informacji na temat umiejetnosci, ktore dziecko w tym wieku powinno posiadac")
+        p.drawString(60, 260, "     oraz wspierania jego rozwoju znajdziesz na stronie:")
+        p.drawString(60, 240, "     http://badabada.pl/dla-rodzicow/rozwoj-dziecka")
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+
+    # FileResponse sets the Content-Disposition header so that browsers
+    # present the option to save the file.
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
