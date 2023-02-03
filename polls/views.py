@@ -40,7 +40,7 @@ def baseQuestionList(request):
     data = list(Question.objects.values().filter(form_type="BASIC"))
     return JsonResponse({'questions': data})
 
-def parsQuestionList(query_result):
+def parssQuestionList(query_result):
     data = list()
     for q in query_result:
         choices_set = list()
@@ -53,9 +53,7 @@ def parsQuestionList(query_result):
                     'choice_text_pl': c.choice_text_pl,
                     'pass_choice': c.pass_choice
             }
-            # print(c_dict)
             choices_set.append(c_dict)
-        # print(choices_set)
         q_dict = {'id': q.id,
                 'question_no': q.question_no,
                 'question_text_pl': q.question_text_pl,
@@ -74,7 +72,7 @@ def parsQuestionList(query_result):
 
 def FollowUpQuestionList(request):
     query_result = Question.objects.filter(form_type="FOLLOW_UP").prefetch_related(Prefetch('choices_set'))
-    data = parsQuestionList(query_result)
+    data = parssQuestionList(query_result)
     return JsonResponse({'questions': data})
 
 
