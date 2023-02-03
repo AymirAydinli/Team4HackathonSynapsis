@@ -14,7 +14,7 @@ export const getStaticProps = async () =>{
 }
 
 
-const BaseForm = ({questions}: {questions:any}) => {
+const BaseForm = ({questions}) => {
   //console.log(questions);
 
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +23,7 @@ const BaseForm = ({questions}: {questions:any}) => {
 
   const router = useRouter();
 
-  const map_question_answer = (answers: any) =>
+  const map_question_answer = (answers) =>
   {
     
     let mapped_questions = {"answers":[]}
