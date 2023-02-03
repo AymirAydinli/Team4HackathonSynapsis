@@ -1,7 +1,9 @@
 import React from "react";
 import { useRouter } from 'next/navigation';
 
+
 const Modal = ({isVisible, questionare_id}) => {
+
   const router = useRouter();
   if( !isVisible) return null;
   return(
