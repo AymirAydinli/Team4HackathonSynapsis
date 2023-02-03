@@ -16,16 +16,17 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable=False)
     updated_at = models.DateTimeField(auto_now = True, editable=False)
     question_parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, related_name='question_children')
+
+    pass_choice = models.BooleanField(default=True, null=True)
     follow_up_answer = models.BooleanField(default=False, null=True)
     custom_answer = models.BooleanField(default=False, null=True)
-    
+    frequency_question = models.BooleanField(default=False, null=True)
+
     FORM_TYPE_CHOISE = [(BASIC, 'Basic'), (FOLLOW_UP, 'Follow-up'),]
 
     form_type = models.CharField(max_length=9,
                   choices=FORM_TYPE_CHOISE)
-
-    pass_choice = models.BooleanField(null=True)
-
+    
     def __str__(self):
         return self.question_text_pl
 

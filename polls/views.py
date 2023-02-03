@@ -65,6 +65,7 @@ def parsQuestionList(query_result):
                 'custom_answer': q.custom_answer,
                 'form_type': q.form_type,
                 'pass_choice': q.pass_choice,
+                'frequency_question': q.frequency_question,
                 'choices_set': choices_set}
         # print(q_dict)
         data.append(q_dict)
